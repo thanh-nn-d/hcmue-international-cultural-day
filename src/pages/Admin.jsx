@@ -11,6 +11,7 @@ import {
   clearLocalSubmissions,
   getSubmissions,
   updateSubmissionStatus,
+  REGISTRATION_TYPES,
 } from "../services/storage";
 
 const statusLabel = {
@@ -25,6 +26,12 @@ const statusDescription = {
   rejected: "Chưa được duyệt để hiển thị công khai.",
 };
 
+const registrationTypeItems = [
+  [REGISTRATION_TYPES.ART, "Chương trình nghệ thuật"],
+  [REGISTRATION_TYPES.EXHIBITION, "Gian hàng triển lãm"],
+  [REGISTRATION_TYPES.ACTIVITY, "Hoạt động của đơn vị"],
+];
+
 function DetailRow({ label, children }) {
   return (
     <div className="admin-detail-row">
@@ -34,23 +41,110 @@ function DetailRow({ label, children }) {
   );
 }
 
+function SummaryBreakdown({ items, status }) {
+  return (
+    <div className="admin-summary-breakdown">
+      {registrationTypeItems.map(([type, label]) => {
+        const count = items.filter(
+          (item) =>
+            (item.registrationType || REGISTRATION_TYPES.ART) === type &&
+            (!status || item.status === status)
+        ).length;
+
+        return (
+          <div className="admin-summary-breakdown-item" key={type}>
+            <span>{label}</span>
+            <strong>{count}</strong>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+function ApplicationTitle({ item }) {
+  const type = item.registrationType || REGISTRATION_TYPES.ART;
+
+  if (type === REGISTRATION_TYPES.EXHIBITION) {
+    return (
+      <>
+        <div className="admin-application-number">GIAN HÀNG</div>
+        <h2>{item.exhibitionContent || "Chưa có nội dung triển lãm"}</h2>
+        <p>
+          {item.unit || "Chưa cập nhật đơn vị"} ·{" "}
+          {item.completionTime || "Chưa cập nhật thời gian hoàn thiện"}
+        </p>
+      </>
+    );
+  }
+
+  if (type === REGISTRATION_TYPES.ACTIVITY) {
+    const activityCount = Array.isArray(item.activities)
+      ? item.activities.length
+      : 0;
+
+    return (
+      <>
+        <div className="admin-application-number">HOẠT ĐỘNG</div>
+        <h2>
+          {activityCount > 0
+            ? `${activityCount} hoạt động đã đăng ký`
+            : "Chưa có tên hoạt động"}
+        </h2>
+        <p>
+          {item.unit || "Chưa cập nhật đơn vị"} ·{" "}
+          {item.contact || "Chưa cập nhật người phụ trách"}
+        </p>
+      </>
+    );
+  }
+
+  return (
+    <>
+      <div className="admin-application-number">TIẾT MỤC</div>
+      <h2>{item.title || "Chưa có tên tiết mục"}</h2>
+      <p>
+        {item.unit || "Chưa cập nhật đơn vị"} ·{" "}
+        {item.people ? `${item.people} người` : "Chưa cập nhật số lượng"} ·{" "}
+        {item.duration
+          ? `${item.duration} phút`
+          : "Chưa cập nhật thời lượng"}
+      </p>
+    </>
+  );
+}
+
+function ConfirmationSection({ number, commitment }) {
+  return (
+    <div className="admin-detail-section">
+      <div className="admin-detail-section-title">
+        <span>{number}</span>
+        <div>
+          <h3>Xác nhận tham gia</h3>
+          <p>Xác nhận cuối cùng của đơn vị trong phiếu đăng ký.</p>
+        </div>
+      </div>
+
+      <div className="admin-detail-grid">
+        <DetailRow label="Xác nhận tham gia">
+          {commitment || "Chưa xác nhận"}
+        </DetailRow>
+      </div>
+    </div>
+  );
+}
+
 function PerformanceApplication({ item, onChangeStatus }) {
   const [open, setOpen] = useState(false);
+  const type = item.registrationType || REGISTRATION_TYPES.ART;
+  const isArt = type === REGISTRATION_TYPES.ART;
+  const isExhibition = type === REGISTRATION_TYPES.EXHIBITION;
 
   return (
     <article className="admin-application">
       <div className="admin-application-summary">
         <div className="admin-application-main">
-          <div className="admin-application-number">TIẾT MỤC</div>
-          <h2>{item.title || "Chưa có tên tiết mục"}</h2>
-          <p>
-            {item.unit || "Chưa cập nhật đơn vị"} ·{" "}
-            {item.people ? `${item.people} người` : "Chưa cập nhật số lượng"}{" "}
-            ·{" "}
-            {item.duration
-              ? `${item.duration} phút`
-              : "Chưa cập nhật thời lượng"}
-          </p>
+          <ApplicationTitle item={item} />
         </div>
 
         <div className="admin-application-status">
@@ -83,76 +177,156 @@ function PerformanceApplication({ item, onChangeStatus }) {
             </div>
 
             <div className="admin-detail-grid">
-              <DetailRow label="Đơn vị đăng ký">
-                {item.unit}
-              </DetailRow>
+              <DetailRow label="Đơn vị đăng ký">{item.unit}</DetailRow>
               <DetailRow label="Người phụ trách - Chức vụ">
                 {item.contact}
               </DetailRow>
-              <DetailRow label="Số điện thoại">
-                {item.phone}
-              </DetailRow>
+              {isArt && (
+                <DetailRow label="Số điện thoại">{item.phone}</DetailRow>
+              )}
             </div>
           </div>
 
-          <div className="admin-detail-section">
-            <div className="admin-detail-section-title">
-              <span>02</span>
-              <div>
-                <h3>Thông tin tiết mục</h3>
-                <p>Nội dung được cung cấp trong phiếu đăng ký.</p>
+          {isArt && (
+            <>
+              <div className="admin-detail-section">
+                <div className="admin-detail-section-title">
+                  <span>02</span>
+                  <div>
+                    <h3>Thông tin chương trình nghệ thuật</h3>
+                    <p>Nội dung được cung cấp trong phiếu đăng ký.</p>
+                  </div>
+                </div>
+
+                <div className="admin-detail-grid admin-detail-grid-one">
+                  <DetailRow label="Tên tiết mục">{item.title}</DetailRow>
+                  <DetailRow label="Quốc gia / nền văn hóa đại diện">
+                    {item.culture}
+                  </DetailRow>
+                  <DetailRow label="Nội dung, ý nghĩa tiết mục">
+                    {item.meaning}
+                  </DetailRow>
+                </div>
+
+                <div className="admin-detail-grid">
+                  <DetailRow label="Số lượng người">
+                    {item.people ? `${item.people} người` : null}
+                  </DetailRow>
+                  <DetailRow label="Thời lượng biểu diễn">
+                    {item.duration ? `${item.duration} phút` : null}
+                  </DetailRow>
+                  <DetailRow label="Yêu cầu kỹ thuật">
+                    {item.technical}
+                  </DetailRow>
+                </div>
               </div>
-            </div>
 
-            <div className="admin-detail-grid admin-detail-grid-one">
-              <DetailRow label="Tên tiết mục">
-                {item.title}
-              </DetailRow>
-              <DetailRow label="Quốc gia / nền văn hóa đại diện">
-                {item.culture}
-              </DetailRow>
-              <DetailRow label="Nội dung, ý nghĩa tiết mục">
-                {item.meaning}
-              </DetailRow>
-            </div>
+              <div className="admin-detail-section">
+                <div className="admin-detail-section-title">
+                  <span>03</span>
+                  <div>
+                    <h3>Danh sách tham gia &amp; Dự trù kinh phí</h3>
+                    <p>Thông tin file được gửi kèm hồ sơ đăng ký.</p>
+                  </div>
+                </div>
 
-            <div className="admin-detail-grid">
-              <DetailRow label="Số lượng người">
-                {item.people ? `${item.people} người` : null}
-              </DetailRow>
-              <DetailRow label="Thời lượng biểu diễn">
-                {item.duration ? `${item.duration} phút` : null}
-              </DetailRow>
-              <DetailRow label="Yêu cầu kỹ thuật">
-                {item.technical}
-              </DetailRow>
-            </div>
-          </div>
-
-          <div className="admin-detail-section">
-            <div className="admin-detail-section-title">
-              <span>03</span>
-              <div>
-                <h3>Danh sách tham gia & xác nhận</h3>
-                <p>Thông tin được gửi kèm hồ sơ đăng ký.</p>
+                <div className="admin-detail-grid">
+                  <DetailRow label="Danh sách tham gia">
+                    {item.participantFileName || "Chưa cập nhật"}
+                  </DetailRow>
+                  <DetailRow label="Dự trù kinh phí">
+                    {item.budgetFileName || "Chưa cập nhật"}
+                  </DetailRow>
+                  <DetailRow label="Xác nhận tham gia">
+                    {item.commitment || "Chưa xác nhận"}
+                  </DetailRow>
+                </div>
               </div>
-            </div>
+            </>
+          )}
 
-            <div className="admin-detail-grid">
-              <DetailRow label="Danh sách tham gia">
-                {item.participantFileName || "Chưa cập nhật"}
-              </DetailRow>
-              <DetailRow label="Xác nhận cam kết tham gia">
-                {item.commitment}
-              </DetailRow>
-            </div>
-          </div>
+          {isExhibition && (
+            <>
+              <div className="admin-detail-section">
+                <div className="admin-detail-section-title">
+                  <span>02</span>
+                  <div>
+                    <h3>Thông tin gian hàng</h3>
+                    <p>Nội dung được cung cấp trong phiếu đăng ký.</p>
+                  </div>
+                </div>
+
+                <div className="admin-detail-grid admin-detail-grid-one">
+                  <DetailRow label="Nội dung triển lãm">
+                    {item.exhibitionContent}
+                  </DetailRow>
+                </div>
+
+                <div className="admin-detail-grid">
+                  <DetailRow label="Thời gian hoàn thiện">
+                    {item.completionTime}
+                  </DetailRow>
+                  <DetailRow label="Nhân sự phụ trách - SĐT">
+                    {item.contact}
+                  </DetailRow>
+                  <DetailRow label="Bố cục trang trí">
+                    {item.layout || "Không có thông tin"}
+                  </DetailRow>
+                </div>
+              </div>
+
+              <ConfirmationSection number="03" commitment={item.commitment} />
+            </>
+          )}
+
+          {type === REGISTRATION_TYPES.ACTIVITY && (
+            <>
+              <div className="admin-detail-section">
+                <div className="admin-detail-section-title">
+                  <span>02</span>
+                  <div>
+                    <h3>Thông tin hoạt động</h3>
+                    <p>Các hoạt động được đơn vị đăng ký.</p>
+                  </div>
+                </div>
+
+                {Array.isArray(item.activities) && item.activities.length > 0 ? (
+                  item.activities.map((activity, index) => (
+                    <div
+                      className="admin-detail-grid admin-detail-grid-one"
+                      key={index}
+                    >
+                      <DetailRow label={`Tên hoạt động ${index + 1}`}>
+                        {activity.name}
+                      </DetailRow>
+                      <DetailRow label="Nội dung thực hiện">
+                        {activity.content}
+                      </DetailRow>
+                    </div>
+                  ))
+                ) : (
+                  <div className="admin-detail-grid admin-detail-grid-one">
+                    <DetailRow label="Hoạt động">Chưa cập nhật</DetailRow>
+                  </div>
+                )}
+
+                <div className="admin-detail-grid">
+                  <DetailRow label="Nhân sự phụ trách - SĐT">
+                    {item.contact}
+                  </DetailRow>
+                </div>
+              </div>
+
+              <ConfirmationSection number="03" commitment={item.commitment} />
+            </>
+          )}
 
           <div className="admin-review-bar">
             <div>
-              <strong>Quyết định hiển thị</strong>
+              <strong>Quyết định xử lý hồ sơ</strong>
               <span>
-                Chỉ chọn “Duyệt” khi tiết mục đáp ứng yêu cầu của chương trình.
+                Chỉ chọn “Duyệt” khi nội dung đăng ký đáp ứng yêu cầu của
+                chương trình.
               </span>
             </div>
 
@@ -163,7 +337,7 @@ function PerformanceApplication({ item, onChangeStatus }) {
                 onClick={() => onChangeStatus(item.id, "approved")}
               >
                 <Check size={17} />
-                Duyệt & hiển thị
+                Duyệt &amp; hiển thị
               </button>
 
               <button
@@ -195,6 +369,7 @@ function PerformanceApplication({ item, onChangeStatus }) {
 
 export default function Admin() {
   const [items, setItems] = useState(getSubmissions());
+  const [selectedType, setSelectedType] = useState(REGISTRATION_TYPES.ART);
   const [filter, setFilter] = useState("all");
 
   const change = (id, status) => {
@@ -216,21 +391,33 @@ export default function Admin() {
     [items]
   );
 
+  const typeItems = items.filter(
+    (item) =>
+      (item.registrationType || REGISTRATION_TYPES.ART) === selectedType
+  );
+
   const filteredItems =
     filter === "all"
-      ? items
-      : items.filter((item) => item.status === filter);
+      ? typeItems
+      : typeItems.filter((item) => item.status === filter);
+
+  const typeCounts = {
+    all: typeItems.length,
+    pending: typeItems.filter((item) => item.status === "pending").length,
+    approved: typeItems.filter((item) => item.status === "approved").length,
+    rejected: typeItems.filter((item) => item.status === "rejected").length,
+  };
 
   return (
     <section className="page-section admin-page">
       <div className="container">
         <div className="admin-header">
           <div className="page-title">
-            <span className="eyebrow">KHU VỰC BAN TỔ CHỨC</span>
             <h1>Quản lý đăng ký</h1>
             <p>
-              Xem toàn bộ nội dung hồ sơ đăng ký, kiểm tra thông tin và quyết
-              định tiết mục nào được hiển thị công khai trên website.
+              Xem toàn bộ hồ sơ đăng ký của chương trình nghệ thuật, gian hàng
+              triển lãm và hoạt động của các đơn vị; kiểm tra thông tin và quyết
+              định trạng thái hồ sơ.
             </p>
           </div>
 
@@ -242,21 +429,81 @@ export default function Admin() {
 
         <div className="admin-summary">
           <div className="admin-summary-item">
-            <span>Tổng đăng ký</span>
-            <strong>{counts.all}</strong>
+            <div className="admin-summary-heading">
+              <span>Tổng đăng ký</span>
+              <strong>{counts.all}</strong>
+            </div>
+            <SummaryBreakdown items={items} />
           </div>
+
           <div className="admin-summary-item admin-summary-pending">
-            <span>Chờ duyệt</span>
-            <strong>{counts.pending}</strong>
+            <div className="admin-summary-heading">
+              <span>Chờ duyệt</span>
+              <strong>{counts.pending}</strong>
+            </div>
+            <SummaryBreakdown items={items} status="pending" />
           </div>
+
           <div className="admin-summary-item admin-summary-approved">
-            <span>Đã duyệt</span>
-            <strong>{counts.approved}</strong>
+            <div className="admin-summary-heading">
+              <span>Đã duyệt</span>
+              <strong>{counts.approved}</strong>
+            </div>
+            <SummaryBreakdown items={items} status="approved" />
           </div>
+
           <div className="admin-summary-item admin-summary-rejected">
-            <span>Từ chối</span>
-            <strong>{counts.rejected}</strong>
+            <div className="admin-summary-heading">
+              <span>Từ chối</span>
+              <strong>{counts.rejected}</strong>
+            </div>
+            <SummaryBreakdown items={items} status="rejected" />
           </div>
+        </div>
+
+        <div className="admin-registration-tabs">
+          <button
+            type="button"
+            className={selectedType === REGISTRATION_TYPES.ART ? "active" : ""}
+            onClick={() => {
+              setSelectedType(REGISTRATION_TYPES.ART);
+              setFilter("all");
+            }}
+          >
+            <strong>01</strong>
+            <span>Chương trình nghệ thuật</span>
+            <em>{items.filter((item) => (item.registrationType || REGISTRATION_TYPES.ART) === REGISTRATION_TYPES.ART).length}</em>
+          </button>
+
+          <button
+            type="button"
+            className={
+              selectedType === REGISTRATION_TYPES.EXHIBITION ? "active" : ""
+            }
+            onClick={() => {
+              setSelectedType(REGISTRATION_TYPES.EXHIBITION);
+              setFilter("all");
+            }}
+          >
+            <strong>02</strong>
+            <span>Gian hàng triển lãm</span>
+            <em>{items.filter((item) => (item.registrationType || REGISTRATION_TYPES.ART) === REGISTRATION_TYPES.EXHIBITION).length}</em>
+          </button>
+
+          <button
+            type="button"
+            className={
+              selectedType === REGISTRATION_TYPES.ACTIVITY ? "active" : ""
+            }
+            onClick={() => {
+              setSelectedType(REGISTRATION_TYPES.ACTIVITY);
+              setFilter("all");
+            }}
+          >
+            <strong>03</strong>
+            <span>Hoạt động của đơn vị</span>
+            <em>{items.filter((item) => (item.registrationType || REGISTRATION_TYPES.ART) === REGISTRATION_TYPES.ACTIVITY).length}</em>
+          </button>
         </div>
 
         <div className="admin-filter">
@@ -273,7 +520,7 @@ export default function Admin() {
               onClick={() => setFilter(value)}
             >
               {label}
-              <span>{counts[value]}</span>
+              <span>{typeCounts[value]}</span>
             </button>
           ))}
         </div>

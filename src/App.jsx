@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 
 import Layout from "./components/Layout";
-
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Registration from "./pages/Registration";
@@ -28,7 +27,7 @@ export default function App() {
       <Route element={<Layout />}>
         <Route path="/home" element={<Home />} />
         <Route path="/gioi-thieu" element={<About />} />
-        <Route path="/dang-ky-tiet-muc" element={<Registration />} />
+        <Route path="/dang-ky-ngay-hoi" element={<Registration />} />
         <Route path="/cac-tiet-muc" element={<Performances />} />
         <Route path="/cac-tiet-muc/:id" element={<PerformanceDetail />} />
 

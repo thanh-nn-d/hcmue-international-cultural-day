@@ -411,12 +411,12 @@ a {
    HEADER
    ========================================================= */
 
-.site-header {
-  position: relative;
-  z-index: 20;
-
-  background: #fff;
-}
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+  }
 
 .brand-strip {
   background: rgba(255, 255, 255, 0.97);
@@ -473,38 +473,22 @@ a {
   margin-top: 5px;
 }
 
-.anniversary-placeholder {
+.anniversary-logo {
   justify-self: end;
-
-  width: 118px;
-
-  text-align: center;
-
-  color: var(--red);
-
-  font-family: "Playfair Display", Georgia, serif;
-
-  border-left: 1px solid #e6edf3;
-
+  width: 150px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   padding-left: 18px;
+  border-left: 1px solid #e6edf3;
 }
 
-.anniversary-placeholder span {
+.anniversary-logo img {
   display: block;
-
-  font-size: 60px;
-
-  line-height: 0.9;
-
-  font-weight: 700;
-}
-
-.anniversary-placeholder small {
-  color: var(--navy);
-
-  font-size: 12px;
-
-  font-family: "Be Vietnam Pro", sans-serif;
+  width: 132px;
+  height: auto;
+  max-height: 88px;
+  object-fit: contain;
 }
 
 /* =========================================================
@@ -851,92 +835,6 @@ a {
 
   transform: none;
 }
-
-.hero-art {
-  align-self: stretch;
-
-  display: flex;
-
-  align-items: end;
-
-  justify-content: end;
-
-  position: relative;
-}
-
-.hero-art > img:not(.hero-ribbon) {
-  width: 125%;
-
-  max-width: none;
-
-  margin-right: -18%;
-
-  margin-bottom: -5px;
-
-  filter:
-    drop-shadow(
-      0 12px 20px rgba(31, 75, 109, 0.06)
-    );
-}
-
-.hero-brand-element {
-  position: absolute;
-
-  z-index: 1;
-
-  right: 7%;
-
-  top: 23%;
-
-  display: flex;
-
-  gap: 12px;
-
-  transform: skewX(-32deg);
-
-  opacity: 0.95;
-}
-
-.hero-brand-element i {
-  display: block;
-
-  width: 70px;
-
-  height: 24px;
-
-  background: var(--navy);
-}
-
-.hero-brand-element i + i {
-  background: var(--red);
-
-  width: 42px;
-}
-
-.hero-ribbon {
-  position: absolute;
-
-  z-index: 2;
-
-  right: -16%;
-
-  bottom: 0;
-
-  width: 90% !important;
-
-  max-width: none;
-
-  height: 72px;
-
-  object-fit: cover;
-
-  object-position: center;
-
-  margin: 0 !important;
-
-  opacity: 0.98;
-}
-
 /* =========================================================
    PERFORMANCE SECTION
    ========================================================= */
@@ -2051,14 +1949,14 @@ a {
     font-size: 10px;
   }
 
-  .anniversary-placeholder {
-    width: 80px;
-
+  .anniversary-logo {
+    width: 90px;
     padding-left: 8px;
   }
 
-  .anniversary-placeholder span {
-    font-size: 42px;
+  .anniversary-logo img {
+    width: 82px;
+    max-height: 60px;
   }
 
   .mobile-menu-btn {
@@ -2109,38 +2007,7 @@ a {
   .hero-content {
     grid-template-columns: 1fr;
   }
-
-  .hero-art {
-    position: absolute;
-
-    right: -12%;
-
-    bottom: 0;
-
-    width: 70%;
-
-    opacity: 0.35;
-  }
-
-  .hero-brand-element {
-    top: 18%;
-
-    right: 16%;
-
-    transform:
-      skewX(-32deg)
-      scale(0.7);
-  }
-
-  .hero-ribbon {
-    width: 125% !important;
-
-    right: -28%;
-
-    height: 50px;
-  }
-
-  .hero-copy {
+.hero-copy {
     padding: 50px 0 55px;
   }
 
@@ -2238,12 +2105,14 @@ a {
     font-size: 8px;
   }
 
-  .anniversary-placeholder span {
-    font-size: 28px;
+  .anniversary-logo {
+    width: 64px;
+    padding-left: 6px;
   }
 
-  .anniversary-placeholder small {
-    font-size: 7px;
+  .anniversary-logo img {
+    width: 58px;
+    max-height: 46px;
   }
 
   /* Hero */
@@ -2432,12 +2301,6 @@ a {
 
   white-space: nowrap;
 }
-
-/* bỏ hoàn toàn phần art bên phải */
-.hero-art {
-  display: none !important;
-}
-
 /* Thông tin căn giữa */
 .hero-info {
   width: min(720px, 100%);
@@ -2693,13 +2556,7 @@ a {
   
     white-space: nowrap;
   }
-  
-  /* bỏ hoàn toàn phần art bên phải */
-  .hero-art {
-    display: none !important;
-  }
-  
-  /* Thông tin căn giữa */
+/* Thông tin căn giữa */
   .hero-info {
     width: min(720px, 100%);
   
@@ -2886,6 +2743,74 @@ a {
 
 
 /* =========================================================
+   OFFICIAL 50TH ANNIVERSARY LOGO — ENTRY / BTC LOGIN
+   ========================================================= */
+
+.entry-header {
+  grid-template-columns: 150px minmax(0, 1fr) 150px;
+}
+
+.entry-anniversary-logo {
+  display: block;
+  width: 125px;
+  max-height: 90px;
+  height: auto;
+  object-fit: contain;
+  justify-self: end;
+}
+
+.btc-login-anniversary-logo {
+  display: block;
+  width: 92px;
+  max-height: 72px;
+  height: auto;
+  object-fit: contain;
+  margin-left: 12px;
+}
+
+@media (max-width: 700px) {
+  .entry-header {
+    grid-template-columns: 90px minmax(0, 1fr) 90px;
+    gap: 10px;
+    min-height: 92px;
+  }
+
+  .entry-school-logo {
+    width: 75px;
+    max-height: 58px;
+  }
+
+  .entry-anniversary-logo {
+    width: 78px;
+    max-height: 62px;
+  }
+
+  .entry-header-title {
+    font-size: 13px;
+    line-height: 1.35;
+  }
+
+  .entry-header-title span {
+    font-size: 11px;
+  }
+
+  .btc-login-anniversary-logo {
+    width: 68px;
+    max-height: 55px;
+    margin-left: 5px;
+  }
+}
+
+@media (max-width: 560px) {
+  .btc-login-anniversary-logo {
+    width: 55px;
+    max-height: 48px;
+  }
+}
+
+
+
+/* =========================================================
    BTC LOGIN
    ========================================================= */
 
@@ -3034,7 +2959,7 @@ a {
 }
 
 .btc-login-card {
-  width: min(470px, 100%);
+  width: min(560px, 100%);
   padding: 38px 40px 30px;
   background: rgba(255, 255, 255, 0.94);
   border: 1px solid rgba(12, 71, 117, 0.12);
@@ -3282,424 +3207,2141 @@ a {
 }
 
 
-/* BTC controls on Home */
-.home-btc-actions {
-  display: flex;
+/* =========================================================
+   FINAL FIX — OFFICIAL HCMUE 50TH ANNIVERSARY LOGO
+   ========================================================= */
+
+.entry-header {
+  grid-template-columns: 150px minmax(0, 1fr) 150px;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 14px;
-  color: var(--muted);
-  font-size: 12px;
 }
 
-.home-btc-actions button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-  min-height: 36px;
-  padding: 0 15px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: #fff;
-  color: var(--red);
-  font: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition: 0.2s;
+.entry-school-logo {
+  display: block;
+  width: 105px;
+  max-height: 78px;
+  height: auto;
+  object-fit: contain;
 }
 
-.home-btc-actions button:hover {
-  background: #fff5f6;
-  border-color: #e7aab3;
+.entry-anniversary-logo {
+  display: block;
+  width: 125px;
+  max-width: 100%;
+  max-height: 90px;
+  height: auto;
+  object-fit: contain;
+  justify-self: end;
+}
+
+.btc-login-anniversary-logo {
+  display: block;
+  width: 92px;
+  max-width: 100%;
+  max-height: 72px;
+  height: auto;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.btc-login-header {
+  min-width: 0;
+}
+
+.btc-login-logo,
+.btc-login-anniversary-logo {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 700px) {
+  .entry-header {
+    grid-template-columns: 90px minmax(0, 1fr) 90px;
+    gap: 10px;
+    min-height: 92px;
+  }
+
+  .entry-school-logo {
+    width: 75px;
+    max-height: 58px;
+  }
+
+  .entry-anniversary-logo {
+    width: 78px;
+    max-height: 62px;
+  }
+
+  .btc-login-anniversary-logo {
+    width: 68px;
+    max-height: 55px;
+  }
 }
 
 @media (max-width: 560px) {
-  .home-btc-actions {
-    flex-direction: column;
-    gap: 9px;
+  .entry-header {
+    grid-template-columns: 62px minmax(0, 1fr) 62px;
+    gap: 7px;
+    min-height: 85px;
+  }
+
+  .entry-school-logo {
+    width: 58px;
+    max-height: 48px;
+  }
+
+  .entry-anniversary-logo {
+    width: 58px;
+    max-height: 48px;
+  }
+
+  .btc-login-anniversary-logo {
+    width: 55px;
+    max-height: 48px;
+  }
+}
+
+/* =========================================================
+   ENTRY HEADER — FINAL BALANCED 3-COLUMN LAYOUT
+   ========================================================= */
+
+.entry-header {
+  width: 100%;
+  min-height: 110px;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr) 150px;
+  align-items: center;
+  column-gap: 18px;
+}
+
+.entry-school-logo,
+.entry-anniversary-logo {
+  width: auto;
+  height: 72px;
+  max-width: 135px;
+  max-height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+.entry-school-logo {
+  justify-self: start;
+}
+
+.entry-anniversary-logo {
+  justify-self: end;
+}
+
+.entry-header-title {
+  min-width: 0;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.entry-header-title span {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+/* Prevent the title from forcing the side columns to move. */
+.entry-header-title > div {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 900px) {
+  .entry-header {
+    grid-template-columns: 115px minmax(0, 1fr) 115px;
+    column-gap: 12px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo {
+    height: 62px;
+    max-height: 62px;
+    max-width: 110px;
+  }
+
+  .entry-header-title {
+    font-size: 15px;
+  }
+
+  .entry-header-title span {
+    font-size: 11px;
+  }
+}
+
+@media (max-width: 700px) {
+  .entry-header {
+    grid-template-columns: 82px minmax(0, 1fr) 82px;
+    column-gap: 8px;
+    min-height: 92px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo {
+    height: 52px;
+    max-height: 52px;
+    max-width: 78px;
+  }
+
+  .entry-header-title {
+    font-size: 12px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .entry-header-title span {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .entry-header {
+    grid-template-columns: 58px minmax(0, 1fr) 58px;
+    column-gap: 5px;
+    min-height: 82px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo {
+    height: 44px;
+    max-height: 44px;
+    max-width: 56px;
+  }
+
+  .entry-header-title {
+    font-size: 10px;
+  }
+
+  .entry-header-title span {
+    font-size: 8px;
+  }
+}
+
+/* =========================================================
+   FINAL — HEADER ENTRY & BTC LOGIN ĐỒNG BỘ
+   ========================================================= */
+
+.entry-header,
+.btc-login-header {
+  width: 100%;
+  min-height: 110px;
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 170px;
+  align-items: center;
+  column-gap: 12px;
+  border-bottom: 1px solid rgba(23, 63, 104, 0.1);
+  box-sizing: border-box;
+}
+
+.entry-school-logo,
+.entry-anniversary-logo,
+.btc-login-logo,
+.btc-login-anniversary-logo {
+  display: block;
+  width: 110px;
+  height: 78px;
+  max-width: 110px;
+  max-height: 78px;
+  object-fit: contain;
+  object-position: center;
+  margin: 0;
+}
+
+.entry-school-logo,
+.btc-login-logo {
+  justify-self: start;
+}
+
+.entry-anniversary-logo,
+.btc-login-anniversary-logo {
+  justify-self: end;
+}
+
+.entry-header-title,
+.btc-login-header-title {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  white-space: nowrap;
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.entry-header-title span,
+.btc-login-header-title span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.btc-login-card-wrap {
+  width: min(560px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.btc-login-card-wrap .btc-back-link {
+  align-self: flex-start;
+  width: fit-content;
+  min-width: 0;
+  margin: 0 0 12px 2px;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.btc-login-card-wrap .btc-back-link:hover {
+  color: var(--red);
+  transform: translateX(-2px);
+}
+
+.btc-login-card-wrap .btc-login-card,
+.btc-login-card-wrap .btc-login-footer {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .entry-header,
+  .btc-login-header {
+    grid-template-columns: 125px minmax(0, 1fr) 125px;
+    column-gap: 10px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo,
+  .btc-login-logo,
+  .btc-login-anniversary-logo {
+    width: 90px;
+    height: 68px;
+    max-width: 90px;
+    max-height: 68px;
+  }
+
+  .entry-header-title,
+  .btc-login-header-title {
+    font-size: 14px;
+  }
+
+  .entry-header-title span,
+  .btc-login-header-title span {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .entry-header,
+  .btc-login-header {
+    min-height: 92px;
+    grid-template-columns: 82px minmax(0, 1fr) 82px;
+    column-gap: 7px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo,
+  .btc-login-logo,
+  .btc-login-anniversary-logo {
+    width: 64px;
+    height: 54px;
+    max-width: 64px;
+    max-height: 54px;
+  }
+
+  .entry-header-title,
+  .btc-login-header-title {
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .entry-header-title span,
+  .btc-login-header-title span {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .entry-header,
+  .btc-login-header {
+    min-height: 84px;
+    grid-template-columns: 58px minmax(0, 1fr) 58px;
+    column-gap: 4px;
+  }
+
+  .entry-school-logo,
+  .entry-anniversary-logo,
+  .btc-login-logo,
+  .btc-login-anniversary-logo {
+    width: 50px;
+    height: 44px;
+    max-width: 50px;
+    max-height: 44px;
+  }
+
+  .entry-header-title,
+  .btc-login-header-title {
+    font-size: 9px;
+  }
+
+  .entry-header-title span,
+  .btc-login-header-title span {
+    font-size: 7px;
+  }
+
+  .btc-login-card-wrap .btc-back-link {
+    margin-bottom: 10px;
+    font-size: 11px;
+  }
+}
+
+/* =========================================================
+   SHARED ANNIVERSARY HEADER — ENTRY + BTC LOGIN
+   ========================================================= */
+
+.anniversary-header {
+  width: 100%;
+  min-height: 110px;
+
+  display: grid;
+  grid-template-columns: 170px minmax(0, 1fr) 170px;
+  align-items: center;
+  column-gap: 12px;
+
+  border-bottom: 1px solid rgba(23, 63, 104, 0.1);
+  box-sizing: border-box;
+}
+
+.anniversary-header__school-logo,
+.anniversary-header__anniversary-logo {
+  display: block;
+  width: 110px;
+  height: 78px;
+  max-width: 110px;
+  max-height: 78px;
+  object-fit: contain;
+  object-position: center;
+  margin: 0;
+}
+
+.anniversary-header__school-logo {
+  justify-self: start;
+}
+
+.anniversary-header__anniversary-logo {
+  justify-self: end;
+}
+
+.anniversary-header__title {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  text-align: center;
+  white-space: nowrap;
+
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.anniversary-header__title span {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Page-specific old logo/header classes no longer control the shared header. */
+.entry-header .entry-school-logo,
+.entry-header .entry-anniversary-logo,
+.btc-login-header .btc-login-logo,
+.btc-login-header .btc-login-anniversary-logo {
+  width: 110px;
+  height: 78px;
+  max-width: 110px;
+  max-height: 78px;
+  object-fit: contain;
+}
+
+/* BTC: keep the back button outside the shared header, above the card. */
+.btc-login-card-wrap {
+  width: min(560px, 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.btc-login-card-wrap .btc-back-link {
+  align-self: flex-start;
+  width: fit-content;
+  min-width: 0;
+  margin: 0 0 12px 2px;
+}
+
+@media (max-width: 900px) {
+  .anniversary-header {
+    grid-template-columns: 125px minmax(0, 1fr) 125px;
+    column-gap: 10px;
+  }
+
+  .anniversary-header__school-logo,
+  .anniversary-header__anniversary-logo {
+    width: 90px;
+    height: 68px;
+    max-width: 90px;
+    max-height: 68px;
+  }
+
+  .anniversary-header__title {
+    font-size: 14px;
+  }
+
+  .anniversary-header__title span {
+    font-size: 10px;
+  }
+}
+
+@media (max-width: 700px) {
+  .anniversary-header {
+    min-height: 92px;
+    grid-template-columns: 82px minmax(0, 1fr) 82px;
+    column-gap: 7px;
+  }
+
+  .anniversary-header__school-logo,
+  .anniversary-header__anniversary-logo {
+    width: 64px;
+    height: 54px;
+    max-width: 64px;
+    max-height: 54px;
+  }
+
+  .anniversary-header__title {
+    font-size: 11px;
+    line-height: 1.3;
+    white-space: normal;
+  }
+
+  .anniversary-header__title span {
+    margin-top: 3px;
+    font-size: 9px;
+  }
+}
+
+@media (max-width: 480px) {
+  .anniversary-header {
+    min-height: 84px;
+    grid-template-columns: 58px minmax(0, 1fr) 58px;
+    column-gap: 4px;
+  }
+
+  .anniversary-header__school-logo,
+  .anniversary-header__anniversary-logo {
+    width: 50px;
+    height: 44px;
+    max-width: 50px;
+    max-height: 44px;
+  }
+
+  .anniversary-header__title {
+    font-size: 9px;
+  }
+
+  .anniversary-header__title span {
+    font-size: 7px;
   }
 }
 
 
 /* =========================================================
-   BTC - QUẢN LÝ ĐĂNG KÝ
+   FINAL — BTC LOGIN CARD LỚN HƠN, DỄ ĐỌC HƠN
    ========================================================= */
 
-   .admin-page {
-    background: #f8fbff;
+.btc-login-card-wrap {
+  width: min(560px, 100%);
+}
+
+.btc-login-card {
+  width: 100%;
+  padding: 46px 52px 36px;
+  box-sizing: border-box;
+}
+
+.btc-login-title p {
+  max-width: 500px;
+}
+
+@media (max-width: 700px) {
+  .btc-login-card-wrap {
+    width: min(100%, 560px);
   }
-  
-  .admin-summary {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
-    margin: 26px 0 18px;
+
+  .btc-login-card {
+    padding: 38px 28px 30px;
   }
-  
-  .admin-summary-item {
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 14px;
-    padding: 16px 18px;
+
+  .btc-login-title p {
+    max-width: 100%;
   }
-  
-  .admin-summary-item span {
-    display: block;
-    color: var(--muted);
-    font-size: 11px;
-    font-weight: 700;
+}
+
+@media (max-width: 480px) {
+  .btc-login-card {
+    padding: 32px 20px 26px;
+    border-radius: 18px;
   }
-  
-  .admin-summary-item strong {
-    display: block;
-    margin-top: 5px;
-    color: var(--navy-dark);
-    font-size: 25px;
-    line-height: 1;
-  }
-  
-  .admin-summary-pending strong {
-    color: #a86600;
-  }
-  
-  .admin-summary-approved strong {
-    color: #197046;
-  }
-  
-  .admin-summary-rejected strong {
-    color: #b72035;
-  }
-  
-  .admin-filter {
-    display: flex;
-    gap: 8px;
-    margin-bottom: 15px;
-  }
-  
-  .admin-filter button {
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--navy);
-    border-radius: 999px;
-    padding: 8px 13px;
-    font: inherit;
-    font-size: 12px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  
-  .admin-filter button span {
-    display: inline-flex;
-    min-width: 20px;
-    height: 20px;
-    align-items: center;
-    justify-content: center;
-    margin-left: 6px;
-    border-radius: 999px;
-    background: #edf4f9;
-    font-size: 10px;
-  }
-  
-  .admin-filter button.active {
-    background: var(--navy);
-    border-color: var(--navy);
-    color: #fff;
-  }
-  
-  .admin-filter button.active span {
-    background: rgba(255, 255, 255, 0.16);
-    color: #fff;
-  }
-  
-  .admin-applications {
-    display: grid;
-    gap: 13px;
-  }
-  
-  .admin-application {
-    overflow: hidden;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    box-shadow: 0 7px 20px rgba(12, 71, 117, 0.045);
-  }
-  
+}
+
+/* =========================================================
+   ADMIN REGISTRATION REVIEW
+   ========================================================= */
+
+.admin-page {
+  background:
+    radial-gradient(circle at 12% 18%, rgba(221, 237, 248, 0.45), transparent 30%),
+    radial-gradient(circle at 90% 78%, rgba(244, 229, 232, 0.4), transparent 32%);
+}
+
+.admin-page .container { max-width: 1180px; }
+
+.admin-header { margin-bottom: 28px; }
+.admin-header .page-title { margin-bottom: 0; }
+.admin-header .btn { flex: 0 0 auto; margin-top: 8px; }
+
+.admin-summary {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin: 0 0 18px;
+}
+
+.admin-summary-item {
+  min-height: 96px;
+  padding: 18px 20px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 7px 22px rgba(12, 71, 117, 0.06);
+}
+
+.admin-summary-item span {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.admin-summary-item strong {
+  display: block;
+  margin-top: 7px;
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  line-height: 1;
+}
+
+.admin-summary-pending { border-top: 3px solid #e6a62c; }
+.admin-summary-approved { border-top: 3px solid #2c9a68; }
+.admin-summary-rejected { border-top: 3px solid var(--red); }
+
+.admin-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+  padding: 6px;
+  width: fit-content;
+  max-width: 100%;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+.admin-filter button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 38px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-filter button:hover { background: #f2f7fb; }
+
+.admin-filter button.active {
+  background: var(--navy);
+  color: #fff;
+}
+
+.admin-filter button span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: rgba(12, 71, 117, 0.08);
+  font-size: 10px;
+}
+
+.admin-filter button.active span { background: rgba(255, 255, 255, 0.18); }
+
+.admin-applications {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.admin-application {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 8px 25px rgba(12, 71, 117, 0.055);
+}
+
+.admin-application-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 24px;
+}
+
+.admin-application-main { min-width: 0; }
+
+.admin-application-number {
+  margin-bottom: 5px;
+  color: var(--red);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+}
+
+.admin-application-main h2 {
+  margin: 0 0 6px;
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 23px;
+  line-height: 1.2;
+}
+
+.admin-application-main p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.admin-application-status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 5px;
+  min-width: 185px;
+}
+
+.admin-application-status small {
+  max-width: 210px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.4;
+  text-align: right;
+}
+
+.admin-detail-toggle {
+  min-height: 38px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #fff;
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.admin-detail-toggle:hover {
+  border-color: #a9c6dc;
+  background: #f7fbfe;
+}
+
+.admin-application-detail {
+  border-top: 1px solid var(--line);
+  background: #fbfdff;
+}
+
+.admin-detail-section {
+  padding: 25px 26px;
+  border-bottom: 1px solid #e8f0f5;
+}
+
+.admin-detail-section:last-of-type { border-bottom: 0; }
+
+.admin-detail-section-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.admin-detail-section-title > span {
+  flex: 0 0 32px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 8px;
+  background: #edf5fb;
+  color: var(--navy);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.admin-detail-section-title h3 {
+  margin: 0;
+  color: var(--navy-dark);
+  font-size: 15px;
+}
+
+.admin-detail-section-title p {
+  margin: 3px 0 0;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.admin-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.admin-detail-grid-one {
+  grid-template-columns: 1fr;
+  margin-bottom: 12px;
+}
+
+.admin-detail-row {
+  min-width: 0;
+  padding: 14px 15px;
+  border: 1px solid #e0eaf1;
+  border-radius: 10px;
+  background: #fff;
+}
+
+.admin-detail-row > span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.45px;
+}
+
+.admin-detail-row > div {
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.admin-review-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 18px 26px;
+  background: #fff;
+  border-top: 1px solid #e8f0f5;
+}
+
+.admin-review-bar > div:first-child { min-width: 0; }
+
+.admin-review-bar strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--navy-dark);
+  font-size: 13px;
+}
+
+.admin-review-bar > div:first-child span {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.admin-review-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.admin-review-btn {
+  min-height: 39px;
+  padding: 0 13px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 800;
+  transition: 0.2s;
+}
+
+.admin-review-approve {
+  border: 1px solid #258457;
+  background: #258457;
+  color: #fff;
+}
+
+.admin-review-approve:hover { background: #1d704a; }
+
+.admin-review-reject {
+  border: 1px solid #e3a1aa;
+  background: #fff;
+  color: var(--red);
+}
+
+.admin-review-reject:hover { background: #fff3f5; }
+
+.admin-review-pending {
+  border: 1px solid #d8e1e8;
+  background: #f7fafc;
+  color: var(--navy);
+}
+
+.admin-review-pending:hover { background: #eef5fa; }
+
+.admin-empty {
+  padding: 60px 25px;
+  border: 1px dashed #cbdbe6;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.7);
+  text-align: center;
+}
+
+.admin-empty-icon {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 12px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #edf5fb;
+  color: var(--navy);
+}
+
+.admin-empty h2 {
+  margin: 0 0 5px;
+  color: var(--navy-dark);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 23px;
+}
+
+.admin-empty p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .admin-summary { grid-template-columns: repeat(2, 1fr); }
+
   .admin-application-summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 210px auto;
-    gap: 20px;
-    align-items: center;
-    padding: 19px 20px;
+    grid-template-columns: 1fr auto;
   }
-  
-  .admin-application-number {
-    margin-bottom: 5px;
-    color: var(--red);
-    font-size: 9px;
-    font-weight: 800;
-    letter-spacing: 1.3px;
-  }
-  
-  .admin-application-main h2 {
-    margin: 0;
-    color: var(--navy-dark);
-    font-family: "Playfair Display", Georgia, serif;
-    font-size: 20px;
-  }
-  
-  .admin-application-main p {
-    margin: 5px 0 0;
-    color: var(--muted);
-    font-size: 12px;
-  }
-  
+
   .admin-application-status {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-  }
-  
-  .admin-application-status small {
-    color: var(--muted);
-    font-size: 10px;
-    line-height: 1.4;
-  }
-  
-  .admin-detail-toggle {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    min-height: 36px;
-    padding: 0 12px;
-    border: 1px solid var(--line);
-    border-radius: 9px;
-    background: #fff;
-    color: var(--navy);
-    font: inherit;
-    font-size: 11px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  
-  .admin-detail-toggle:hover {
-    background: #f6faff;
-  }
-  
-  .admin-application-detail {
-    border-top: 1px solid #e9f0f5;
-    background: #fbfdff;
-  }
-  
-  .admin-detail-section {
-    padding: 21px 22px;
-    border-bottom: 1px solid #e9f0f5;
-  }
-  
-  .admin-detail-section-title {
-    display: flex;
+    grid-column: 1 / -1;
+    grid-row: 2;
     align-items: flex-start;
-    gap: 11px;
-    margin-bottom: 16px;
   }
-  
-  .admin-detail-section-title > span {
-    display: grid;
-    width: 28px;
-    height: 28px;
-    place-items: center;
-    flex: 0 0 28px;
-    border-radius: 8px;
-    background: #edf5fb;
-    color: var(--navy);
-    font-size: 10px;
-    font-weight: 800;
+
+  .admin-application-status small {
+    max-width: none;
+    text-align: left;
   }
-  
-  .admin-detail-section-title h3 {
-    margin: 0;
-    color: var(--navy-dark);
-    font-size: 14px;
-  }
-  
-  .admin-detail-section-title p {
-    margin: 3px 0 0;
-    color: var(--muted);
-    font-size: 10px;
-  }
-  
+
   .admin-detail-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
-  
+
+  .admin-review-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-review-actions { justify-content: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .admin-summary { grid-template-columns: 1fr 1fr; }
+
+  .admin-summary-item {
+    min-height: 84px;
+    padding: 14px;
+  }
+
+  .admin-summary-item strong { font-size: 25px; }
+
+  .admin-filter { width: 100%; }
+
+  .admin-filter button {
+    flex: 1 1 calc(50% - 8px);
+  }
+
+  .admin-application-summary {
+    grid-template-columns: 1fr;
+    gap: 13px;
+    padding: 18px;
+  }
+
+  .admin-application-status {
+    grid-column: auto;
+    grid-row: auto;
+    align-items: flex-start;
+  }
+
+  .admin-detail-toggle { width: 100%; }
+
+  .admin-detail-section { padding: 20px 18px; }
+
+  .admin-detail-grid,
   .admin-detail-grid-one {
     grid-template-columns: 1fr;
-    margin-bottom: 12px;
   }
-  
-  .admin-detail-row {
-    min-height: 64px;
-    padding: 12px 14px;
-    border: 1px solid #e2ebf2;
-    border-radius: 10px;
-    background: #fff;
-  }
-  
-  .admin-detail-row > span {
-    display: block;
-    margin-bottom: 6px;
-    color: var(--muted);
-    font-size: 10px;
-    font-weight: 700;
-  }
-  
-  .admin-detail-row > div {
-    color: var(--ink);
-    font-size: 12px;
-    line-height: 1.6;
-    white-space: pre-line;
-  }
-  
-  .admin-review-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    padding: 17px 22px;
-    background: #fff;
-  }
-  
-  .admin-review-bar > div:first-child {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .admin-review-bar strong {
-    color: var(--navy-dark);
-    font-size: 12px;
-  }
-  
-  .admin-review-bar span {
-    color: var(--muted);
-    font-size: 10px;
-  }
-  
+
+  .admin-review-bar { padding: 17px 18px; }
+
   .admin-review-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    gap: 8px;
-  }
-  
-  .admin-review-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 35px;
-    padding: 0 12px;
-    border-radius: 8px;
-    font: inherit;
-    font-size: 11px;
-    font-weight: 800;
-    cursor: pointer;
-  }
-  
-  .admin-review-approve {
-    border: 1px solid #1c8053;
-    background: #1c8053;
-    color: #fff;
-  }
-  
-  .admin-review-reject {
-    border: 1px solid #d62e43;
-    background: #fff;
-    color: #d62e43;
-  }
-  
-  .admin-review-pending {
-    border: 1px solid var(--line);
-    background: #fff;
-    color: var(--navy);
-  }
-  
-  .admin-empty {
-    padding: 55px 20px;
-    text-align: center;
-    background: #fff;
-    border: 1px solid var(--line);
-    border-radius: 16px;
-  }
-  
-  .admin-empty-icon {
     display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .admin-review-btn { width: 100%; }
+}
+
+/* =========================================================
+   HOME — COMPACT FIXED HERO / REMOVE OLD DECORATION
+   ========================================================= */
+
+:root {
+  --home-fixed-top: 180px;
+  --home-fixed-height: 300px;
+}
+
+/* Keep the Home hero fixed while scrolling. */
+.hero {
+  position: fixed;
+  top: var(--home-fixed-top);
+  left: 0;
+  right: 0;
+  z-index: 900;
+  width: 100%;
+  height: var(--home-fixed-height);
+  min-height: var(--home-fixed-height);
+  overflow: hidden;
+}
+
+.hero-content {
+  height: 100%;
+  min-height: var(--home-fixed-height);
+}
+
+.hero-copy {
+  padding: 28px 0;
+}
+
+.script-title {
+  font-size: 42px;
+  margin-bottom: 7px;
+}
+
+.hero h1 {
+  font-size: clamp(34px, 3.8vw, 52px);
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.hero-info {
+  margin-top: 16px;
+  padding: 10px 0;
+}
+
+.hero-actions {
+  margin-top: 16px;
+}
+
+.home-btc-actions {
+  margin-top: 7px;
+}
+/* Leave enough space for the fixed hero before the performances. */
+.performances-section {
+  padding-top: calc(var(--home-fixed-height) + 30px);
+}
+
+/* BTC logout button */
+.home-btc-logout {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid rgba(12, 71, 117, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--navy);
+  font-size: 12px;
+  font-weight: 700;
+  box-shadow: 0 5px 15px rgba(12, 71, 117, 0.08);
+  transition: 0.2s ease;
+}
+
+.home-btc-logout:hover {
+  border-color: rgba(214, 46, 67, 0.3);
+  background: #fff5f6;
+  color: var(--red);
+  transform: translateY(-1px);
+}
+
+/* Performance carousel arrows */
+.carousel-wrap {
+  position: relative;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  z-index: 10;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 1px solid #d7e4ee;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--navy);
+  box-shadow: 0 7px 20px rgba(12, 71, 117, 0.13);
+  transform: translateY(-50%);
+  transition: 0.2s ease;
+}
+
+.carousel-btn.left {
+  left: -20px;
+}
+
+.carousel-btn.right {
+  right: -20px;
+}
+
+.carousel-btn:hover {
+  border-color: rgba(214, 46, 67, 0.35);
+  background: #fff5f6;
+  color: var(--red);
+  transform: translateY(-50%) scale(1.05);
+}
+
+/* =========================================================
+   HOME — RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 820px) {
+  :root {
+    --home-fixed-top: 154px;
+    --home-fixed-height: 330px;
+  }
+
+  .hero {
+    height: var(--home-fixed-height);
+    min-height: var(--home-fixed-height);
+  }
+
+  .hero-content {
+    height: 100%;
+    min-height: var(--home-fixed-height);
+  }
+
+  .hero-copy {
+    padding: 22px 0;
+  }
+
+  .script-title {
+    font-size: 37px;
+  }
+
+  .hero h1 {
+    font-size: clamp(25px, 5.8vw, 44px);
+    white-space: nowrap;
+  }
+
+  .hero-info {
+    margin-top: 13px;
+    padding: 9px 0;
+  }
+
+  .hero-actions {
+    margin-top: 13px;
+  }
+
+  .performances-section {
+    padding-top: calc(var(--home-fixed-height) + 24px);
+  }
+
+  .carousel-btn.left {
+    left: -8px;
+  }
+
+  .carousel-btn.right {
+    right: -8px;
+  }
+}
+
+@media (max-width: 560px) {
+  :root {
+    --home-fixed-top: 154px;
+    --home-fixed-height: 345px;
+  }
+
+  .hero {
+    height: var(--home-fixed-height);
+    min-height: var(--home-fixed-height);
+  }
+
+  .hero-content {
+    height: 100%;
+    min-height: var(--home-fixed-height);
+  }
+
+  .hero-copy {
+    padding: 20px 0;
+  }
+
+  .script-title {
+    font-size: 34px;
+  }
+
+  .hero h1 {
+    font-size: clamp(19px, 6vw, 30px);
+    white-space: nowrap;
+  }
+
+  .hero-info {
+    margin-top: 12px;
+    padding: 8px 0;
+  }
+
+  .hero-actions {
+    margin-top: 12px;
+  }
+
+  .home-btc-actions {
+    margin-top: 7px;
+  }
+
+  .performances-section {
+    padding-top: calc(var(--home-fixed-height) + 18px);
+  }
+
+  .carousel-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-btn.left {
+    left: -5px;
+  }
+
+  .carousel-btn.right {
+    right: -5px;
+  }
+}
+
+/* =========================================================
+   FINAL FORM CONFIRMATION
+   ========================================================= */
+
+.commitment-confirmation {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  margin-top: 20px;
+  padding: 15px 17px;
+  border: 1px solid #dbe6ef;
+  border-radius: 10px;
+  background: #f8fcff;
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+.commitment-confirmation input {
+  flex: 0 0 auto;
+  width: 17px;
+  height: 17px;
+  margin: 2px 0 0;
+  accent-color: var(--navy);
+}
+
+.commitment-confirmation b {
+  color: var(--red);
+}
+
+/* =========================================================
+   HEADER — FINAL FIX FOR CURRENT Header.jsx
+   ========================================================= */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #e4edf4;
+  box-shadow: 0 4px 14px rgba(7, 54, 93, 0.06);
+}
+
+.site-header .header-inner {
+  width: min(1180px, calc(100% - 40px));
+  min-height: 78px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.site-header .brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 0 0 auto;
+  min-width: 0;
+  text-decoration: none;
+}
+
+.site-header .brand-school-logo {
+  display: block;
+  width: 52px;
+  height: 52px;
+  max-width: 52px;
+  max-height: 52px;
+  flex: 0 0 52px;
+  object-fit: contain;
+}
+
+.site-header .brand-divider {
+  width: 1px;
+  height: 38px;
+  flex: 0 0 1px;
+  background: #dbe6ef;
+}
+
+.site-header .brand-anniversary-logo {
+  display: block;
+  width: 64px;
+  height: 64px;
+  max-width: 64px;
+  max-height: 64px;
+  flex: 0 0 64px;
+  object-fit: contain;
+}
+
+.site-header .main-nav {
+  position: static;
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-end;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 54px;
+  margin-left: auto;
+  background: transparent;
+  color: var(--navy-dark);
+  box-shadow: none;
+}
+
+.site-header .nav-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 54px;
+  padding: 0 16px;
+  color: var(--navy-dark);
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  transition: 0.2s ease;
+}
+
+.site-header .nav-link:hover {
+  background: #f2f7fb;
+  color: var(--navy);
+}
+
+.site-header .nav-link.active {
+  color: var(--red);
+}
+
+.site-header .nav-link.active::after {
+  content: "";
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 0;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: var(--red);
+}
+
+.site-header .language-switch {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 54px;
+  padding: 0 6px 0 12px;
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.site-header .mobile-menu-toggle {
+  display: none;
+  width: 40px;
+  height: 40px;
+  margin-left: auto;
+  padding: 0;
+  border: 1px solid #dbe6ef;
+  border-radius: 9px;
+  background: #fff;
+  color: var(--navy);
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header .mobile-menu-toggle:hover {
+  background: #f4f8fb;
+}
+
+@media (max-width: 1050px) {
+  .site-header .header-inner {
+    gap: 14px;
+  }
+
+  .site-header .nav-link {
+    padding: 0 11px;
+    font-size: 13px;
+  }
+
+  .site-header .brand-school-logo {
+    width: 48px;
+    height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+    flex-basis: 48px;
+  }
+
+  .site-header .brand-anniversary-logo {
+    width: 58px;
+    height: 58px;
+    max-width: 58px;
+    max-height: 58px;
+    flex-basis: 58px;
+  }
+}
+
+@media (max-width: 820px) {
+  .site-header .header-inner {
+    min-height: 70px;
+    width: min(100% - 30px, 680px);
+    gap: 10px;
+  }
+
+  .site-header .brand-school-logo {
+    width: 44px;
+    height: 44px;
+    max-width: 44px;
+    max-height: 44px;
+    flex-basis: 44px;
+  }
+
+  .site-header .brand-anniversary-logo {
     width: 52px;
     height: 52px;
-    place-items: center;
-    margin: 0 auto 13px;
-    border-radius: 50%;
-    background: #edf5fb;
-    color: var(--navy);
+    max-width: 52px;
+    max-height: 52px;
+    flex-basis: 52px;
+  }
+
+  .site-header .brand-divider {
+    height: 32px;
+  }
+
+  .site-header .mobile-menu-toggle {
+    display: inline-flex;
+  }
+
+  .site-header .main-nav {
+    display: none;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    right: 0;
+    width: 100%;
+    min-height: 0;
+    margin: 0;
+    padding: 8px 0;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0;
+    background: var(--navy-dark);
+    color: #fff;
+    box-shadow: 0 10px 22px rgba(7, 54, 93, 0.16);
+  }
+
+  .site-header .main-nav.open {
+    display: flex;
+  }
+
+  .site-header .nav-link {
+    min-height: 46px;
+    justify-content: flex-start;
+    padding: 0 22px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .site-header .nav-link:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+  }
+
+  .site-header .nav-link.active {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .site-header .nav-link.active::after {
+    left: 0;
+    right: auto;
+    top: 8px;
+    bottom: 8px;
+    width: 3px;
+    height: auto;
+    border-radius: 0 3px 3px 0;
+  }
+
+  .site-header .language-switch {
+    min-height: 44px;
+    justify-content: flex-start;
+    padding: 0 22px;
+    color: #fff;
+  }
+}
+
+@media (max-width: 560px) {
+  .site-header .header-inner {
+    width: min(100% - 26px, 1180px);
+    min-height: 64px;
+  }
+
+  .site-header .brand {
+    gap: 8px;
+  }
+
+  .site-header .brand-school-logo {
+    width: 40px;
+    height: 40px;
+    max-width: 40px;
+    max-height: 40px;
+    flex-basis: 40px;
+  }
+
+  .site-header .brand-anniversary-logo {
+    width: 47px;
+    height: 47px;
+    max-width: 47px;
+    max-height: 47px;
+    flex-basis: 47px;
+  }
+
+  .site-header .brand-divider {
+    height: 28px;
+  }
+
+  .site-header .mobile-menu-toggle {
+    width: 38px;
+    height: 38px;
+  }
+
+  .site-header .main-nav {
+    top: 64px;
+  }
+}
+
+
+/* =========================================================
+   KHÁM PHÁ NGÀY HỘI — TITLE DISPLAY
+   ========================================================= */
+
+/* Tiêu đề chính của trang */
+.public-content-page-title {
+  margin-bottom: 34px;
+}
+
+.public-content-page-title h1 {
+  margin: 0;
+  color: var(--red);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 54px;
+  font-weight: 700;
+  line-height: 1.08;
+}
+
+/* Tiêu đề của 3 nhóm nội dung */
+.public-registration-section__header {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 18px;
+}
+
+.public-registration-section__title {
+  margin: 0;
+  color: var(--red);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.public-registration-section__count {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* Khoảng cách giữa 3 nhóm */
+.public-registration-section + .public-registration-section {
+  margin-top: 42px;
+}
+
+@media (max-width: 560px) {
+  .public-content-page-title {
+    margin-bottom: 28px;
+  }
+
+  .public-content-page-title h1 {
+    font-size: 38px;
+  }
+
+  .public-registration-section__header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 7px;
+  }
+
+  .public-registration-section__title {
+    font-size: 26px;
+  }
+
+  .public-registration-section + .public-registration-section {
+    margin-top: 34px;
+  }
+}
+
+
+/* =========================================================
+   ADMIN — TRANG QUẢN LÝ ĐĂNG KÝ
+   ========================================================= */
+
+/* Tiêu đề */
+.admin-header .page-title h1 {
+  margin: 0 0 10px;
+  color: var(--red);
+}
+
+/* Summary cards */
+.admin-summary-item {
+  min-height: 150px;
+}
+
+.admin-summary-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 13px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid #edf2f6;
+}
+
+.admin-summary-heading span {
+  margin: 0;
+  color: var(--navy-dark);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.admin-summary-heading strong {
+  margin: 0;
+  color: var(--red);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 32px;
+  line-height: 1;
+}
+
+/* Các số chi tiết: số nằm cùng hàng với nội dung */
+.admin-summary-breakdown {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-summary-breakdown-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.admin-summary-breakdown-item span {
+  margin: 0;
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.admin-summary-breakdown-item strong {
+  flex: 0 0 auto;
+  margin: 0;
+  color: var(--navy);
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 20px;
+  line-height: 1;
+}
+
+/* Thanh chọn 3 loại đăng ký */
+.admin-registration-tabs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 0 0 12px;
+}
+
+.admin-registration-tabs button {
+  min-height: 62px;
+  padding: 10px 15px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--navy);
+  text-align: left;
+  transition: 0.2s ease;
+}
+
+.admin-registration-tabs button:hover {
+  border-color: #b8cede;
+  background: #f8fbfe;
+  transform: translateY(-1px);
+}
+
+.admin-registration-tabs button.active {
+  border-color: var(--navy);
+  background: var(--navy);
+  color: #fff;
+  box-shadow: 0 7px 18px rgba(12, 71, 117, 0.14);
+}
+
+.admin-registration-tabs button strong {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 9px;
+  background: #edf5fb;
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.admin-registration-tabs button.active strong {
+  background: rgba(255, 255, 255, 0.16);
+  color: #fff;
+}
+
+.admin-registration-tabs button span {
+  display: block;
+  color: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.admin-registration-tabs button em {
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 999px;
+  background: #edf3f8;
+  color: var(--navy);
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.admin-registration-tabs button.active em {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Bộ lọc trạng thái — tách biệt với 3 loại đăng ký */
+.admin-filter {
+  margin-bottom: 20px;
+  padding: 5px;
+  gap: 5px;
+  border-radius: 11px;
+}
+
+.admin-filter button {
+  min-height: 40px;
+  padding: 0 15px;
+  border-radius: 8px;
+}
+
+.admin-filter button span {
+  background: #edf3f8;
+  color: var(--navy);
+}
+
+.admin-filter button.active span {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .admin-registration-tabs {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-registration-tabs button {
+    min-height: 54px;
+  }
+}
+
+@media (max-width: 560px) {
+  .admin-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-summary-item {
+    min-height: 130px;
+  }
+
+  .admin-summary-heading strong {
+    font-size: 28px;
+  }
+
+  .admin-registration-tabs {
+    gap: 8px;
+  }
+
+  .admin-registration-tabs button {
+    grid-template-columns: auto 1fr auto;
+    padding: 9px 12px;
+  }
+}
+
+/* =========================================================
+   KHÁM PHÁ NGÀY HỘI — CARD GIAN HÀNG / HOẠT ĐỘNG
+   ========================================================= */
+
+   .public-registration-card {
+    width: 100%;
+    min-height: 180px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+  
+    background: #fff;
+    border: 1px solid #edf2f6;
+    border-radius: 12px;
+  
+    box-shadow: 0 7px 22px rgba(15, 66, 103, 0.11);
+  
+    overflow: hidden;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      border-color 0.25s ease;
   }
   
-  .admin-empty h2 {
-    margin: 0 0 6px;
+  .public-registration-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 28px rgba(15, 66, 103, 0.15);
+    border-color: #dce8f1;
+  }
+  
+  .public-registration-card__number {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+  
+    min-height: 25px;
+    padding: 4px 9px;
+  
+    border-radius: 999px;
+  
+    background: var(--navy);
+    color: #fff;
+  
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+  
+  .public-registration-card h3 {
+    margin: 14px 0 7px;
+  
     color: var(--navy-dark);
+  
     font-family: "Playfair Display", Georgia, serif;
     font-size: 20px;
+    line-height: 1.35;
   }
   
-  .admin-empty p {
-    margin: 0;
-    color: var(--muted);
-    font-size: 12px;
+  .public-registration-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+  
+    gap: 7px 14px;
+  
+    margin-top: auto;
+    margin-bottom: 0;
+  
+    color: var(--navy);
+  
+    font-size: 13px;
+    font-weight: 600;
   }
   
   @media (max-width: 820px) {
-    .admin-summary {
-      grid-template-columns: repeat(2, 1fr);
+    .public-registration-card {
+      padding: 18px;
     }
   
-    .admin-application-summary {
-      grid-template-columns: 1fr;
-      gap: 12px;
-    }
-  
-    .admin-detail-grid {
-      grid-template-columns: 1fr;
-    }
-  
-    .admin-review-bar {
-      flex-direction: column;
-      align-items: stretch;
-    }
-  
-    .admin-review-actions {
-      justify-content: flex-start;
+    .public-registration-card h3 {
+      font-size: 18px;
     }
   }
   
   @media (max-width: 560px) {
-    .admin-summary {
-      grid-template-columns: 1fr 1fr;
+    .public-registration-card {
+      padding: 17px;
+      border-radius: 10px;
     }
   
-    .admin-filter {
-      overflow-x: auto;
-      padding-bottom: 3px;
-    }
-  
-    .admin-filter button {
-      white-space: nowrap;
-    }
-  
-    .admin-detail-section,
-    .admin-review-bar {
-      padding: 17px 15px;
+    .public-registration-card h3 {
+      font-size: 17px;
     }
   }
-  
+
+/* =========================================================
+   REGISTRATION CHOICE - FINAL
+   ========================================================= */
+
+.registration-choice-page-title {
+  margin: 8px 0 10px;
+  color: var(--red) !important;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 42px;
+  line-height: 1.1;
+}
+
+/* 3 lựa chọn đăng ký */
+.registration-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.registration-choice-card-new {
+  position: relative;
+  width: 100%;
+  min-height: 245px;
+  padding: 28px 25px 23px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 0;
+
+  border: 1px solid #dce7ef;
+  border-radius: 16px;
+  background: #fff;
+  color: var(--ink);
+  text-align: left;
+
+  box-shadow: 0 10px 28px rgba(15, 66, 103, 0.08);
+
+  transition:
+    transform 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.registration-choice-card-new:hover {
+  transform: translateY(-5px);
+  border-color: rgba(214, 46, 67, 0.35);
+  box-shadow: 0 16px 34px rgba(15, 66, 103, 0.13);
+}
+
+.registration-choice-card-new:focus-visible {
+  outline: 3px solid rgba(214, 46, 67, 0.18);
+  outline-offset: 3px;
+}
+
+/* Bỏ hoàn toàn khoảng dành cho số thứ tự cũ */
+.registration-choice-card-new > div {
+  width: 100%;
+}
+
+.registration-choice-title {
+  margin: 0 0 14px;
+  color: var(--navy-dark) !important;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 25px;
+  line-height: 1.25;
+  font-weight: 700;
+}
+
+.registration-choice-description {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.registration-choice-arrow {
+  width: 34px;
+  height: 34px;
+  margin-top: auto;
+  display: grid;
+  place-items: center;
+
+  border: 1px solid rgba(214, 46, 67, 0.28);
+  border-radius: 50%;
+  background: #fff7f8;
+  color: var(--red);
+
+  font-size: 18px;
+  line-height: 1;
+
+  transition:
+    background 0.22s ease,
+    color 0.22s ease,
+    transform 0.22s ease;
+}
+
+.registration-choice-card-new:hover .registration-choice-arrow {
+  background: var(--red);
+  color: #fff;
+  transform: translateX(2px);
+}
+
+/* Tạo điểm nhấn nhẹ khác nhau cho từng lựa chọn */
+.registration-choice-card-new:nth-child(1) {
+  border-top: 4px solid var(--red);
+}
+
+.registration-choice-card-new:nth-child(2) {
+  border-top: 4px solid var(--navy);
+}
+
+.registration-choice-card-new:nth-child(3) {
+  border-top: 4px solid var(--red);
+}
+
+@media (max-width: 900px) {
+  .registration-choice-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .registration-choice-card-new {
+    min-height: 190px;
+  }
+}
+
+@media (max-width: 560px) {
+  .registration-choice-page-title {
+    font-size: 33px;
+  }
+
+  .registration-choice-grid {
+    gap: 14px;
+    margin-top: 27px;
+  }
+
+  .registration-choice-card-new {
+    min-height: 175px;
+    padding: 23px 20px 20px;
+    border-radius: 13px;
+  }
+
+  .registration-choice-title {
+    font-size: 21px;
+    margin-bottom: 10px;
+  }
+
+  .registration-choice-description {
+    font-size: 12px;
+    line-height: 1.6;
+  }
+}

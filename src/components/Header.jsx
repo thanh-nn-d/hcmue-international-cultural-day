@@ -1,26 +1,25 @@
-import { NavLink, useLocation } from "react-router-dom";
-import { Globe2, Home as HomeIcon, Menu, X } from "lucide-react";
+import { NavLink } from "react-router-dom";
+import { ArrowLeft, Globe2, Home as HomeIcon, Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/logo-hcmue.png";
+import logo50 from "../assets/logo-50-hcmue.png";
 
 const guestLinks = [
   { to: "/home", label: "Trang chủ", icon: HomeIcon },
   { to: "/gioi-thieu", label: "Giới thiệu" },
-  { to: "/dang-ky-tiet-muc", label: "Đăng ký tiết mục" },
-  { to: "/cac-tiet-muc", label: "Các tiết mục tham gia" },
+  { to: "/dang-ky-ngay-hoi", label: "Đăng ký Ngày hội" },
+  { to: "/cac-tiet-muc", label: "Khám phá Ngày hội" },
 ];
 
 const btcLinks = [
   { to: "/home", label: "Trang chủ", icon: HomeIcon },
   { to: "/gioi-thieu", label: "Giới thiệu" },
   { to: "/admin", label: "Quản lý đăng ký" },
-  { to: "/cac-tiet-muc", label: "Các tiết mục tham gia" },
+  { to: "/cac-tiet-muc", label: "Khám phá Ngày hội" },
 ];
 
 export default function Header() {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
-
   const authenticated =
     localStorage.getItem("hicd_btc_authenticated") === "true";
 
@@ -51,12 +50,11 @@ export default function Header() {
             <span>(27/10/1976 - 27/10/2026)</span>
           </div>
 
-          <div
-            className="anniversary-placeholder"
-            aria-label="Logo biểu trưng 50 năm"
-          >
-            <span>50</span>
-            <small>1976 - 2026</small>
+          <div className="anniversary-logo">
+            <img
+              src={logo50}
+              alt="Logo kỷ niệm 50 năm Trường Đại học Sư phạm Thành phố Hồ Chí Minh"
+            />
           </div>
         </div>
       </div>
@@ -85,6 +83,20 @@ export default function Header() {
                 <span>{label}</span>
               </NavLink>
             ))}
+
+            {!isBTC && (
+              <NavLink
+                to="/"
+                className="nav-link nav-back-entry"
+                onClick={() => {
+                  localStorage.removeItem("hicd_btc_authenticated");
+                  setOpen(false);
+                }}
+              >
+                <ArrowLeft size={18} />
+                <span>Quay lại trang chọn</span>
+              </NavLink>
+            )}
 
             <div className="language">
               <Globe2 size={18} />

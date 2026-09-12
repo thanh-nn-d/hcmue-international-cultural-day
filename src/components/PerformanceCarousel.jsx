@@ -8,23 +8,44 @@ export default function PerformanceCarousel({ items }) {
   const scroll = (direction) => {
     ref.current?.scrollBy({
       left: direction * 360,
-      behavior: "smooth"
+      behavior: "smooth",
     });
   };
 
   if (!items.length) {
-    return <div className="empty-state">Chưa có tiết mục được công khai.</div>;
+    return (
+      <div className="empty-state">
+        Chưa có nội dung nào được công khai.
+      </div>
+    );
   }
 
   return (
     <div className="carousel-wrap">
-      <button className="carousel-btn left" onClick={() => scroll(-1)} aria-label="Trước">
+      <button
+        type="button"
+        className="carousel-btn left"
+        onClick={() => scroll(-1)}
+        aria-label="Trước"
+      >
         <ChevronLeft />
       </button>
+
       <div className="performance-carousel" ref={ref}>
-        {items.map((item) => <PerformanceCard key={item.id} item={item} />)}
+        {items.map((item) => (
+          <PerformanceCard
+            key={item.id}
+            item={item}
+          />
+        ))}
       </div>
-      <button className="carousel-btn right" onClick={() => scroll(1)} aria-label="Sau">
+
+      <button
+        type="button"
+        className="carousel-btn right"
+        onClick={() => scroll(1)}
+        aria-label="Sau"
+      >
         <ChevronRight />
       </button>
     </div>

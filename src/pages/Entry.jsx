@@ -2,6 +2,7 @@ import { ArrowRight, Globe2, ShieldCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import schoolLogo from "../assets/logo-hcmue.png";
+import anniversaryLogo from "../assets/logo-50-hcmue.png";
 
 export default function Entry() {
   return (
@@ -19,7 +20,7 @@ export default function Entry() {
             alt="Trường Đại học Sư phạm Thành phố Hồ Chí Minh"
             className="entry-school-logo"
           />
-        </header>
+
           <div className="entry-header-title">
             <div>
               Chào mừng kỷ niệm 50 năm Ngày truyền thống Trường Đại học
@@ -29,14 +30,19 @@ export default function Entry() {
             <span>(27/10/1976 - 27/10/2026)</span>
           </div>
 
+          <img
+            src={anniversaryLogo}
+            alt="Kỷ niệm 50 năm Trường Đại học Sư phạm Thành phố Hồ Chí Minh"
+            className="entry-anniversary-logo"
+          />
+        </header>
+
         {/* CONTENT */}
         <section className="entry-content">
           <div className="entry-event-title">
             <div className="entry-script-title">Ngày hội</div>
 
-            <h1>
-              GIAO LƯU VĂN HÓA QUỐC TẾ
-            </h1>
+            <h1>GIAO LƯU VĂN HÓA QUỐC TẾ</h1>
 
             <p>
               Cùng khám phá các sắc màu văn hóa sẽ xuất hiện trong ngày hội nhé!
@@ -56,6 +62,9 @@ export default function Entry() {
             <Link
               to="/home"
               className="entry-option entry-option-guest"
+              onClick={() => {
+                localStorage.removeItem("hicd_btc_authenticated");
+              }}
             >
               <div className="entry-option-icon">
                 <Globe2 size={32} strokeWidth={1.8} />
@@ -95,12 +104,8 @@ export default function Entry() {
         </section>
 
         <footer className="entry-footer">
-          <span>
-            Ngày hội giao lưu văn hóa quốc tế
-          </span>
-
+          <span>Ngày hội giao lưu văn hóa quốc tế</span>
           <span>•</span>
-
           <span>HCMUE 2026</span>
         </footer>
       </div>
