@@ -5345,3 +5345,1028 @@ a {
     line-height: 1.6;
   }
 }
+
+.form-back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 9px 15px;
+  border: 1px solid #cfdce7;
+  border-radius: 8px;
+
+  background: #fff;
+  color: var(--navy);
+
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.form-back-button:hover {
+  background: #f3f8fc;
+  border-color: #9fb9cc;
+  color: var(--navy-dark);
+}
+
+/* =========================================================
+   ABOUT PAGE - REDESIGN
+   ========================================================= */
+
+   .about-page {
+    background:
+      radial-gradient(
+        circle at 8% 18%,
+        rgba(220, 236, 247, 0.65),
+        transparent 28%
+      ),
+      radial-gradient(
+        circle at 92% 68%,
+        rgba(245, 226, 231, 0.45),
+        transparent 30%
+      ),
+      var(--paper);
+  }
+  
+  /* ---------- Intro ---------- */
+  
+  .about-intro-card {
+    position: relative;
+    overflow: hidden;
+  
+    padding: 38px 42px;
+    margin-bottom: 42px;
+  
+    background: #fff;
+  
+    border: 1px solid #dce8f1;
+    border-radius: 18px;
+  
+    box-shadow:
+      0 12px 32px rgba(12, 71, 117, 0.07);
+  }
+  
+  .about-intro-card::before {
+    content: "";
+  
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+  
+    width: 5px;
+  
+    background: var(--red);
+  }
+  
+  .about-card-label {
+    display: inline-block;
+  
+    margin-bottom: 10px;
+  
+    color: var(--red);
+  
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+  }
+  
+  .about-intro-card h2 {
+    margin: 0 0 18px;
+  
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 30px;
+    line-height: 1.25;
+  }
+  
+  .about-intro-card p {
+    margin: 0 0 13px;
+  
+    color: #526b80;
+  
+    font-size: 14px;
+    line-height: 1.75;
+  }
+  
+  .about-intro-card p:last-child {
+    margin-bottom: 0;
+  }
+  
+  
+  /* ---------- Section heading ---------- */
+  
+  .about-section-block {
+    margin-bottom: 42px;
+  }
+  
+  .about-section-heading {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 14px;
+  
+    margin-bottom: 14px;
+  }
+  
+  .about-section-icon {
+    flex: 0 0 48px;
+  
+    width: 48px;
+    height: 48px;
+  
+    display: grid;
+    place-items: center;
+  
+    border-radius: 12px;
+  
+    background: #edf5fb;
+  
+    font-size: 23px;
+  }
+  
+  .about-section-label {
+    display: block;
+  
+    margin-bottom: 3px;
+  
+    color: var(--red);
+  
+    font-size: 10px;
+    font-weight: 800;
+  
+    letter-spacing: 1.4px;
+  }
+  
+  .about-section-heading h2 {
+    margin: 0;
+  
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 27px;
+    line-height: 1.2;
+  }
+  
+  .about-section-intro {
+    margin: 0 0 22px;
+  
+    color: var(--muted);
+  
+    font-size: 14px;
+    line-height: 1.7;
+  }
+  
+  
+  /* ---------- Culture countries ---------- */
+  
+  .about-culture-grid {
+    display: grid;
+  
+    grid-template-columns: repeat(4, 1fr);
+  
+    gap: 11px;
+  
+    margin-bottom: 18px;
+  }
+  
+  .about-culture-item {
+    min-height: 78px;
+  
+    padding: 15px 16px;
+  
+    display: flex;
+  
+    flex-direction: column;
+  
+    justify-content: center;
+  
+    border: 1px solid #dce8f1;
+    border-radius: 11px;
+  
+    background: #fff;
+  
+    transition:
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  
+  .about-culture-item:hover {
+    transform: translateY(-2px);
+  
+    border-color: #b9cede;
+  
+    box-shadow:
+      0 8px 20px rgba(12, 71, 117, 0.08);
+  }
+  
+  .about-culture-item span {
+    margin-bottom: 5px;
+  
+    color: var(--red);
+  
+    font-size: 10px;
+  
+    font-weight: 800;
+  
+    letter-spacing: 1px;
+  }
+  
+  .about-culture-item strong {
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 16px;
+  }
+  
+  
+  /* ---------- Culture features ---------- */
+  
+  .about-culture-features {
+    display: grid;
+  
+    grid-template-columns: repeat(3, 1fr);
+  
+    gap: 14px;
+  }
+  
+  .about-culture-features > div {
+    padding: 19px;
+  
+    background: #f7fbfe;
+  
+    border: 1px solid #e2edf4;
+    border-radius: 12px;
+  }
+  
+  .about-culture-features strong {
+    display: block;
+  
+    margin-bottom: 7px;
+  
+    color: var(--navy-dark);
+  
+    font-size: 13px;
+  }
+  
+  .about-culture-features p {
+    margin: 0;
+  
+    color: var(--muted);
+  
+    font-size: 12px;
+  
+    line-height: 1.65;
+  }
+  
+  
+  /* ---------- Feature cards ---------- */
+  
+  .about-feature-grid {
+    display: grid;
+  
+    grid-template-columns: repeat(2, 1fr);
+  
+    gap: 18px;
+  
+    margin-bottom: 42px;
+  }
+  
+  .about-feature-card {
+    padding: 27px;
+  
+    background: #fff;
+  
+    border: 1px solid #dce8f1;
+  
+    border-radius: 16px;
+  
+    box-shadow:
+      0 9px 25px rgba(12, 71, 117, 0.06);
+  }
+  
+  .about-feature-icon {
+    display: inline-flex;
+  
+    align-items: center;
+    justify-content: center;
+  
+    width: 44px;
+    height: 44px;
+  
+    margin-bottom: 13px;
+  
+    border-radius: 11px;
+  
+    background: #fbecef;
+  
+    font-size: 21px;
+  }
+  
+  .about-feature-card .about-section-label {
+    margin-bottom: 6px;
+  }
+  
+  .about-feature-card h2 {
+    margin: 0 0 10px;
+  
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 23px;
+  }
+  
+  .about-feature-card p {
+    margin: 0;
+  
+    color: var(--muted);
+  
+    font-size: 13px;
+  
+    line-height: 1.7;
+  }
+  
+  
+  /* ---------- Performance ---------- */
+  
+  .about-performance-card {
+    position: relative;
+  
+    overflow: hidden;
+  
+    padding: 30px 32px;
+  
+    margin-bottom: 42px;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #f5faff 0%,
+        #fff 100%
+      );
+  
+    border: 1px solid #d9e7f1;
+  
+    border-radius: 17px;
+  }
+  
+  .about-performance-heading {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 14px;
+  
+    margin-bottom: 12px;
+  }
+  
+  .about-performance-heading .about-feature-icon {
+    flex: 0 0 44px;
+  
+    margin: 0;
+  }
+  
+  .about-performance-heading h2 {
+    margin: 0;
+  
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 27px;
+  }
+  
+  .about-performance-card > p {
+    margin: 0 0 21px;
+  
+    max-width: 780px;
+  
+    color: var(--muted);
+  
+    font-size: 13px;
+  
+    line-height: 1.7;
+  }
+  
+  .about-performance-list {
+    display: grid;
+  
+    grid-template-columns: repeat(2, 1fr);
+  
+    gap: 10px;
+  }
+  
+  .about-performance-list > div {
+    display: flex;
+  
+    align-items: center;
+  
+    gap: 12px;
+  
+    min-height: 58px;
+  
+    padding: 11px 14px;
+  
+    background: #fff;
+  
+    border: 1px solid #e0eaf1;
+  
+    border-radius: 10px;
+  }
+  
+  .about-performance-list span {
+    flex: 0 0 30px;
+  
+    width: 30px;
+    height: 30px;
+  
+    display: grid;
+  
+    place-items: center;
+  
+    border-radius: 7px;
+  
+    background: #edf5fb;
+  
+    color: var(--navy);
+  
+    font-size: 10px;
+  
+    font-weight: 800;
+  }
+  
+  .about-performance-list strong {
+    color: var(--ink);
+  
+    font-size: 12px;
+  
+    line-height: 1.45;
+  }
+  
+  
+  /* ---------- Event information ---------- */
+  
+  .about-info-section {
+    margin-bottom: 42px;
+  }
+  
+  .about-info-grid {
+    display: grid;
+  
+    grid-template-columns: repeat(3, 1fr);
+  
+    gap: 14px;
+  }
+  
+  .about-info-item {
+    min-height: 125px;
+  
+    padding: 21px;
+  
+    background: #fff;
+  
+    border: 1px solid #dce8f1;
+  
+    border-radius: 13px;
+  }
+  
+  .about-info-item span {
+    display: block;
+  
+    margin-bottom: 9px;
+  
+    color: var(--red);
+  
+    font-size: 10px;
+  
+    font-weight: 800;
+  
+    letter-spacing: 1.3px;
+  }
+  
+  .about-info-item strong {
+    display: block;
+  
+    color: var(--navy-dark);
+  
+    font-size: 13px;
+  
+    line-height: 1.6;
+  }
+  
+  
+  /* ---------- Closing ---------- */
+  
+  .about-closing {
+    padding: 38px 30px;
+  
+    margin-top: 10px;
+  
+    text-align: center;
+  
+    background:
+      linear-gradient(
+        135deg,
+        #f4f9fd,
+        #fff
+      );
+  
+    border-top: 1px solid #dce8f1;
+    border-bottom: 1px solid #dce8f1;
+  }
+  
+  .about-closing > span {
+    display: block;
+  
+    margin-bottom: 9px;
+  
+    color: var(--red);
+  
+    font-size: 11px;
+  
+    font-weight: 800;
+  
+    letter-spacing: 1.8px;
+  }
+  
+  .about-closing h2 {
+    margin: 0 0 9px;
+  
+    color: var(--navy-dark);
+  
+    font-family: "Playfair Display", Georgia, serif;
+  
+    font-size: 27px;
+  }
+  
+  .about-closing p {
+    max-width: 650px;
+  
+    margin: 0 auto;
+  
+    color: var(--muted);
+  
+    font-size: 13px;
+  
+    line-height: 1.65;
+  }
+  
+  
+  /* =========================================================
+     ABOUT RESPONSIVE
+     ========================================================= */
+  
+  @media (max-width: 820px) {
+    .about-intro-card {
+      padding: 30px;
+    }
+  
+    .about-culture-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  
+    .about-culture-features {
+      grid-template-columns: 1fr;
+    }
+  
+    .about-feature-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .about-performance-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .about-info-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  
+  @media (max-width: 560px) {
+    .about-intro-card {
+      padding: 25px 21px;
+      margin-bottom: 34px;
+    }
+  
+    .about-intro-card h2 {
+      font-size: 24px;
+    }
+  
+    .about-intro-card p {
+      font-size: 13px;
+    }
+  
+    .about-section-heading {
+      gap: 11px;
+    }
+  
+    .about-section-icon {
+      flex-basis: 42px;
+  
+      width: 42px;
+      height: 42px;
+  
+      font-size: 20px;
+    }
+  
+    .about-section-heading h2 {
+      font-size: 23px;
+    }
+  
+    .about-culture-grid {
+      grid-template-columns: 1fr 1fr;
+  
+      gap: 9px;
+    }
+  
+    .about-culture-item {
+      min-height: 70px;
+  
+      padding: 13px;
+    }
+  
+    .about-culture-item strong {
+      font-size: 14px;
+    }
+  
+    .about-culture-features {
+      gap: 10px;
+    }
+  
+    .about-culture-features > div {
+      padding: 16px;
+    }
+  
+    .about-feature-card {
+      padding: 22px;
+    }
+  
+    .about-performance-card {
+      padding: 24px 20px;
+    }
+  
+    .about-performance-heading h2 {
+      font-size: 23px;
+    }
+  
+    .about-performance-list > div {
+      padding: 10px 12px;
+    }
+  
+    .about-info-item {
+      min-height: auto;
+  
+      padding: 18px;
+    }
+  
+    .about-closing {
+      padding: 30px 18px;
+    }
+  
+    .about-closing h2 {
+      font-size: 22px;
+    }
+  }
+
+  /* =========================================================
+   ABOUT PAGE - FINAL
+   Chỉ áp dụng cho trang Giới thiệu
+   ========================================================= */
+
+/* ==================== INTRO ==================== */
+
+.about-page .about-intro-card {
+  margin-top: 0;
+}
+
+.about-page .about-intro-highlight {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--navy-dark);
+
+  font-family: "Be Vietnam Pro", system-ui, sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+
+  letter-spacing: 0.3px;
+  line-height: 1.4;
+}
+
+.about-page .about-intro-title {
+  margin: 0 0 20px;
+
+  color: var(--red);
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  line-height: 1.25;
+}
+
+/* Các cụm nhấn mạnh trong phần giới thiệu */
+
+.about-page .about-blue-emphasis {
+  color: var(--navy-dark);
+  font-weight: 800;
+}
+
+.about-page .about-red-emphasis {
+  color: var(--red);
+  font-weight: 800;
+}
+
+.about-page .about-anniversary-text {
+  color: var(--navy-dark);
+  font-weight: 800;
+  font-style: italic;
+}
+
+
+/* ==================== KHÔNG GIAN VĂN HÓA ==================== */
+
+.about-page .about-culture-title {
+  margin: 0;
+
+  color: var(--red);
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+.about-page .about-section-intro {
+  margin-top: 12px;
+}
+
+.about-page .about-section-intro .about-blue-emphasis {
+  color: var(--navy-dark);
+  font-weight: 800;
+}
+
+
+/* ==================== ẨM THỰC + LỄ HỘI ==================== */
+
+/* Label TRẢI NGHIỆM / TƯƠNG TÁC */
+
+.about-page .about-feature-label {
+  color: var(--navy-dark);
+}
+
+/* Tiêu đề Không gian ẩm thực / lễ hội */
+
+.about-page .about-feature-title {
+  color: var(--red);
+}
+
+
+/* ==================== CHƯƠNG TRÌNH NGHỆ THUẬT ==================== */
+
+.about-page .about-performance-title {
+  margin: 0;
+
+  color: var(--red);
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  line-height: 1.25;
+}
+
+/* Đảm bảo không còn timeline cũ */
+
+.about-page .about-performance-list {
+  display: none;
+}
+
+.about-page .about-performance-card > p {
+  max-width: none;
+
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.8;
+}
+
+
+/* ==================== THÔNG TIN NGÀY HỘI ==================== */
+
+.about-page .about-info-title {
+  margin: 0;
+
+  color: var(--red);
+
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 30px;
+  font-weight: 700;
+
+  line-height: 1.2;
+}
+
+
+/* ---------- Card thông tin ---------- */
+
+.about-page .about-info-grid {
+  display: grid;
+
+  grid-template-columns: 0.85fr 1.35fr 1.2fr;
+
+  gap: 18px;
+
+  align-items: stretch;
+}
+
+.about-page .about-info-item {
+  min-height: 100%;
+
+  padding: 24px;
+
+  background: #fff;
+
+  border: 1px solid #dce8f1;
+  border-radius: 14px;
+
+  box-shadow:
+    0 8px 22px rgba(12, 71, 117, 0.045);
+}
+
+.about-page .about-info-item > span {
+  margin-bottom: 12px;
+
+  color: var(--red);
+
+  font-size: 10px;
+  font-weight: 800;
+
+  letter-spacing: 1.4px;
+}
+
+.about-page .about-info-item > strong {
+  color: var(--navy-dark);
+
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+
+/* ---------- Địa điểm ---------- */
+
+.about-page .about-info-location > strong {
+  display: block;
+
+  margin-bottom: 17px;
+
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+.about-page .about-address-note {
+  display: block;
+
+  margin-top: 4px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  font-weight: 500;
+  font-style: italic;
+}
+
+
+/* Các địa điểm bên dưới là thông tin phụ */
+
+.about-page .about-location-list {
+  margin-top: 4px;
+  padding-left: 15px;
+
+  border-left: 2px solid #e7edf2;
+}
+
+.about-page .about-location-list p {
+  margin: 0 0 12px;
+
+  color: var(--muted);
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.about-page .about-location-list p:last-child {
+  margin-bottom: 0;
+}
+
+.about-page .about-location-list b {
+  color: var(--navy-dark);
+
+  font-weight: 700;
+}
+
+
+/* ---------- Đối tượng ---------- */
+
+.about-page .about-info-audience ul {
+  margin: 0;
+  padding-left: 18px;
+
+  color: var(--navy-dark);
+
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.about-page .about-info-audience li {
+  margin-bottom: 10px;
+  padding-left: 2px;
+}
+
+.about-page .about-info-audience li:last-child {
+  margin-bottom: 0;
+}
+
+
+/* ==================== CLOSING ==================== */
+
+.about-page .about-closing {
+  margin-top: 12px;
+}
+
+
+/* ==================== RESPONSIVE ==================== */
+
+@media (max-width: 900px) {
+  .about-page .about-info-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .about-page .about-info-audience {
+    grid-column: 1 / -1;
+  }
+}
+
+
+@media (max-width: 820px) {
+  .about-page .about-intro-highlight {
+    font-size: 16px;
+  }
+
+  .about-page .about-intro-title,
+  .about-page .about-culture-title,
+  .about-page .about-performance-title,
+  .about-page .about-info-title {
+    font-size: 27px;
+  }
+
+  .about-page .about-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-page .about-info-audience {
+    grid-column: auto;
+  }
+}
+
+
+@media (max-width: 560px) {
+  .about-page .about-intro-highlight {
+    font-size: 14px;
+  }
+
+  .about-page .about-intro-title,
+  .about-page .about-culture-title,
+  .about-page .about-performance-title,
+  .about-page .about-info-title {
+    font-size: 23px;
+  }
+
+  .about-page .about-info-item {
+    padding: 19px;
+  }
+
+  .about-page .about-info-location > strong {
+    font-size: 13px;
+  }
+
+  .about-page .about-location-list p {
+    font-size: 11px;
+  }
+
+  .about-page .about-info-audience ul {
+    font-size: 11px;
+  }
+}

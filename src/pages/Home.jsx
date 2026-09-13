@@ -38,19 +38,19 @@ export default function Home() {
               <InfoItem
                 icon={<CalendarDays size={25} />}
                 title="Thời gian"
-                value="Bổ sung thông tin sau"
+                value="08g00 ngày 26/10/2026 (thứ Hai)"
               />
 
               <InfoItem
                 icon={<MapPin size={25} />}
                 title="Địa điểm"
-                value="Bổ sung thông tin sau"
+                value="Cơ sở 280 An Dương Vương, Trường Đại học Sư phạm Thành phố Hồ Chí Minh"
               />
 
               <InfoItem
                 icon={<UsersRound size={25} />}
                 title="Đối tượng"
-                value="Bổ sung thông tin sau"
+                value="Người học, viên chức, người lao động và khách mời trong nước, quốc tế"
               />
             </div>
 
