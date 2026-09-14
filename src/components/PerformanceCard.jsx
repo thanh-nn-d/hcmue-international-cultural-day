@@ -1,11 +1,44 @@
 import { Clock3, UsersRound } from "lucide-react";
 import { Link } from "react-router-dom";
 
+const unitFlags = {
+  "Khoa Ngữ văn": {
+    flag: "🇻🇳",
+    country: "Việt Nam",
+  },
+  "Khoa Tiếng Anh": {
+    flag: "🇬🇧",
+    country: "Anh",
+  },
+  "Khoa Tiếng Pháp": {
+    flag: "🇫🇷",
+    country: "Pháp",
+  },
+  "Khoa Tiếng Nga": {
+    flag: "🇷🇺",
+    country: "Nga",
+  },
+  "Khoa Tiếng Trung": {
+    flag: "🇨🇳",
+    country: "Trung Quốc",
+  },
+  "Khoa Tiếng Nhật": {
+    flag: "🇯🇵",
+    country: "Nhật Bản",
+  },
+  "Khoa Tiếng Hàn Quốc": {
+    flag: "🇰🇷",
+    country: "Hàn Quốc",
+  },
+};
+
 export default function PerformanceCard({ item }) {
   const firstPerformance =
     Array.isArray(item.performances) && item.performances.length > 0
       ? item.performances[0]
       : item;
+
+  const unitInfo = unitFlags[item.unit];
 
   return (
     <Link className="performance-card" to={`/cac-tiet-muc/${item.id}`}>
@@ -15,6 +48,14 @@ export default function PerformanceCard({ item }) {
             src={item.thumbnail}
             alt={firstPerformance.title || "Chương trình nghệ thuật"}
           />
+        ) : unitInfo ? (
+          <div className="thumb-placeholder thumb-country">
+            <span className="country-flag" aria-hidden="true">
+              {unitInfo.flag}
+            </span>
+
+            <b>{unitInfo.country}</b>
+          </div>
         ) : (
           <div className="thumb-placeholder">
             <span>NGÀY HỘI</span>
