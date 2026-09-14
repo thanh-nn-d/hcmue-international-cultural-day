@@ -2,7 +2,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useRef } from "react";
 import PerformanceCard from "./PerformanceCard";
 
-export default function PerformanceCarousel({ items }) {
+export default function PerformanceCarousel({ items = [] }) {
   const ref = useRef(null);
 
   const scroll = (direction) => {
@@ -34,7 +34,7 @@ export default function PerformanceCarousel({ items }) {
       <div className="performance-carousel" ref={ref}>
         {items.map((item) => (
           <PerformanceCard
-            key={item.id}
+            key={`${item.registrationType || "content"}-${item.id}`}
             item={item}
           />
         ))}
