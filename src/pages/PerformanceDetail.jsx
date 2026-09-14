@@ -6,8 +6,9 @@ import {
   UsersRound,
 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 import {
-  getSubmissions,
+  loadPublicSubmissions,
   REGISTRATION_TYPES,
 } from "../services/storage";
 
@@ -67,11 +68,6 @@ function ArtProgramDetail({ item }) {
         {item.meaning}
       </DetailSection>
 
-      {item.technical && (
-        <DetailSection title="Yêu cầu kỹ thuật">
-          {item.technical}
-        </DetailSection>
-      )}
     </>
   );
 }
@@ -99,9 +95,6 @@ function ExhibitionDetail({ item }) {
         {item.exhibitionContent}
       </DetailSection>
 
-      <DetailSection title="Bố cục trang trí">
-        {item.layout}
-      </DetailSection>
     </>
   );
 }
@@ -158,10 +151,49 @@ function ActivityDetail({ item }) {
 
 export default function PerformanceDetail() {
   const { id } = useParams();
+  const [item, setItem] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  const item = getSubmissions().find(
-    (entry) => entry.id === id && entry.status === "approved"
-  );
+  useEffect(() => {
+    let active = true;
+
+    const load = async () => {
+      try {
+        const items = await loadPublicSubmissions();
+        const found = items.find(
+          (entry) => entry.id === id && entry.status === "approved"
+        );
+
+        if (active) {
+          setItem(found || null);
+        }
+      } catch {
+        if (active) {
+          setItem(null);
+        }
+      } finally {
+        if (active) {
+          setLoading(false);
+        }
+      }
+    };
+
+    load();
+
+    return () => {
+      active = false;
+    };
+  }, [id]);
+
+  if (loading) {
+    return (
+      <section className="page-section">
+        <div className="container empty-state">
+          Đang tải nội dung...
+        </div>
+      </section>
+    );
+  }
 
   if (!item) {
     return <EmptyDetail />;

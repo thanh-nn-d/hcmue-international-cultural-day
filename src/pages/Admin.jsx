@@ -6,10 +6,10 @@ import {
   RotateCcw,
   X,
 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
-  clearLocalSubmissions,
   getSubmissions,
+  loadSubmissions,
   updateSubmissionStatus,
   REGISTRATION_TYPES,
 } from "../services/storage";
@@ -99,16 +99,26 @@ function ApplicationTitle({ item }) {
     );
   }
 
+  const firstPerformance =
+    Array.isArray(item.performances) && item.performances.length > 0
+      ? item.performances[0]
+      : item;
+
   return (
     <>
       <div className="admin-application-number">TIẾT MỤC</div>
-      <h2>{item.title || "Chưa có tên tiết mục"}</h2>
+      <h2>{firstPerformance.title || "Chưa có tên tiết mục"}</h2>
       <p>
         {item.unit || "Chưa cập nhật đơn vị"} ·{" "}
-        {item.people ? `${item.people} người` : "Chưa cập nhật số lượng"} ·{" "}
-        {item.duration
-          ? `${item.duration} phút`
+        {firstPerformance.people
+          ? `${firstPerformance.people} người`
+          : "Chưa cập nhật số lượng"} ·{" "}
+        {firstPerformance.duration
+          ? `${firstPerformance.duration} phút`
           : "Chưa cập nhật thời lượng"}
+        {Array.isArray(item.performances) && item.performances.length > 1
+          ? ` · ${item.performances.length} tiết mục`
+          : ""}
       </p>
     </>
   );
@@ -134,7 +144,7 @@ function ConfirmationSection({ number, commitment }) {
   );
 }
 
-function PerformanceApplication({ item, onChangeStatus }) {
+function PerformanceApplication({ item, onChangeStatus, processingId, processingStatus }) {
   const [open, setOpen] = useState(false);
   const type = item.registrationType || REGISTRATION_TYPES.ART;
   const isArt = type === REGISTRATION_TYPES.ART;
@@ -198,27 +208,65 @@ function PerformanceApplication({ item, onChangeStatus }) {
                   </div>
                 </div>
 
-                <div className="admin-detail-grid admin-detail-grid-one">
-                  <DetailRow label="Tên tiết mục">{item.title}</DetailRow>
-                  <DetailRow label="Quốc gia / nền văn hóa đại diện">
-                    {item.culture}
-                  </DetailRow>
-                  <DetailRow label="Nội dung, ý nghĩa tiết mục">
-                    {item.meaning}
-                  </DetailRow>
-                </div>
+                {(Array.isArray(item.performances) ? item.performances : [item]).map(
+                  (performance, index) => (
+                    <div key={performance.id || index}>
+                      <div className="admin-detail-grid admin-detail-grid-one">
+                        <DetailRow label={`Tên tiết mục ${index + 1}`}>
+                          {performance.title}
+                        </DetailRow>
+                        <DetailRow label="Quốc gia / nền văn hóa đại diện">
+                          {performance.culture}
+                        </DetailRow>
+                        <DetailRow label="Nội dung, ý nghĩa tiết mục">
+                          {performance.meaning}
+                        </DetailRow>
+                      </div>
 
-                <div className="admin-detail-grid">
-                  <DetailRow label="Số lượng người">
-                    {item.people ? `${item.people} người` : null}
-                  </DetailRow>
-                  <DetailRow label="Thời lượng biểu diễn">
-                    {item.duration ? `${item.duration} phút` : null}
-                  </DetailRow>
-                  <DetailRow label="Yêu cầu kỹ thuật">
-                    {item.technical}
-                  </DetailRow>
-                </div>
+                      <div className="admin-detail-grid">
+                        <DetailRow label="Số lượng người">
+                          {performance.people
+                            ? `${performance.people} người`
+                            : null}
+                        </DetailRow>
+                        <DetailRow label="Thời lượng biểu diễn">
+                          {performance.duration
+                            ? `${performance.duration} phút`
+                            : null}
+                        </DetailRow>
+                        <DetailRow label="Yêu cầu kỹ thuật">
+                          {performance.technical}
+                        </DetailRow>
+                        <DetailRow label="Video demo">
+                          {performance.demoVideo ? (
+                            <a
+                              href={performance.demoVideo}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Mở video demo
+                            </a>
+                          ) : (
+                            "Chưa cập nhật"
+                          )}
+                        </DetailRow>
+                        <DetailRow label="Nhạc nền">
+                          {performance.backgroundMusic ? (
+                            <a
+                              href={performance.backgroundMusic}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              Mở file nhạc nền
+                            </a>
+                          ) : (
+                            "Chưa cập nhật"
+                          )}
+                        </DetailRow>
+                      </div>
+                    </div>
+                  )
+                )}
               </div>
 
               <div className="admin-detail-section">
@@ -232,10 +280,30 @@ function PerformanceApplication({ item, onChangeStatus }) {
 
                 <div className="admin-detail-grid">
                   <DetailRow label="Danh sách tham gia">
-                    {item.participantFileName || "Chưa cập nhật"}
+                    {item.participantFileUrl ? (
+                      <a
+                        href={item.participantFileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Mở danh sách tham gia
+                      </a>
+                    ) : (
+                      "Chưa cập nhật"
+                    )}
                   </DetailRow>
                   <DetailRow label="Dự trù kinh phí">
-                    {item.budgetFileName || "Chưa cập nhật"}
+                    {item.budgetFileUrl ? (
+                      <a
+                        href={item.budgetFileUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        Mở dự trù kinh phí
+                      </a>
+                    ) : (
+                      "Chưa cập nhật"
+                    )}
                   </DetailRow>
                   <DetailRow label="Xác nhận tham gia">
                     {item.commitment || "Chưa xác nhận"}
@@ -333,30 +401,87 @@ function PerformanceApplication({ item, onChangeStatus }) {
             <div className="admin-review-actions">
               <button
                 type="button"
-                className="admin-review-btn admin-review-approve"
-                onClick={() => onChangeStatus(item.id, "approved")}
+                className={`admin-review-btn ${
+                  item.status === "approved"
+                    ? "admin-review-approved-done"
+                    : "admin-review-approve"
+                }`}
+                onClick={() => {
+                  if (
+                    item.status !== "approved" &&
+                    processingId !== item.registrationId
+                  ) {
+                    onChangeStatus(item.registrationId, "approved");
+                  }
+                }}
+                disabled={
+                  item.status === "approved" ||
+                  processingId === item.registrationId
+                }
               >
-                <Check size={17} />
-                Duyệt &amp; hiển thị
+                {processingId === item.registrationId &&
+                processingStatus === "approved" ? (
+                  <>
+                    <span className="admin-spinner" />
+                    Đang duyệt...
+                  </>
+                ) : (
+                  <>
+                    <Check size={17} />
+                    {item.status === "approved"
+                      ? "Đã duyệt"
+                      : "Duyệt & hiển thị"}
+                  </>
+                )}
               </button>
 
               <button
                 type="button"
                 className="admin-review-btn admin-review-reject"
-                onClick={() => onChangeStatus(item.id, "rejected")}
+                onClick={() => {
+                  if (processingId !== item.registrationId) {
+                    onChangeStatus(item.registrationId, "rejected");
+                  }
+                }}
+                disabled={processingId === item.registrationId}
               >
-                <X size={17} />
-                Từ chối
+                {processingId === item.registrationId &&
+                processingStatus === "rejected" ? (
+                  <>
+                    <span className="admin-spinner" />
+                    Đang từ chối...
+                  </>
+                ) : (
+                  <>
+                    <X size={17} />
+                    Từ chối
+                  </>
+                )}
               </button>
 
               {item.status !== "pending" && (
                 <button
                   type="button"
                   className="admin-review-btn admin-review-pending"
-                  onClick={() => onChangeStatus(item.id, "pending")}
+                  onClick={() => {
+                    if (processingId !== item.registrationId) {
+                      onChangeStatus(item.registrationId, "pending");
+                    }
+                  }}
+                  disabled={processingId === item.registrationId}
                 >
-                  <Eye size={17} />
-                  Đưa về chờ duyệt
+                  {processingId === item.registrationId &&
+                  processingStatus === "pending" ? (
+                    <>
+                      <span className="admin-spinner" />
+                      Đang cập nhật...
+                    </>
+                  ) : (
+                    <>
+                      <Eye size={17} />
+                      Đưa về chờ duyệt
+                    </>
+                  )}
                 </button>
               )}
             </div>
@@ -371,14 +496,56 @@ export default function Admin() {
   const [items, setItems] = useState(getSubmissions());
   const [selectedType, setSelectedType] = useState(REGISTRATION_TYPES.ART);
   const [filter, setFilter] = useState("all");
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [processingId, setProcessingId] = useState(null);
+  const [processingStatus, setProcessingStatus] = useState("");
 
-  const change = (id, status) => {
-    setItems(updateSubmissionStatus(id, status));
+  const refresh = async () => {
+    try {
+      setError("");
+      const data = await loadSubmissions();
+      setItems(data);
+    } catch (err) {
+      setError(err.message || "Không thể tải dữ liệu đăng ký.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const reset = () => {
-    clearLocalSubmissions();
-    setItems(getSubmissions());
+  useEffect(() => {
+    refresh();
+  }, []);
+
+  const change = async (id, status) => {
+    let rejectionReason = "";
+
+    if (status === "rejected") {
+      rejectionReason =
+        window.prompt("Nhập lý do từ chối hồ sơ:")?.trim() || "";
+
+      if (!rejectionReason) {
+        return;
+      }
+    }
+
+    try {
+      setError("");
+      setProcessingId(id);
+      setProcessingStatus(status);
+
+      const next = await updateSubmissionStatus(
+        id,
+        status,
+        rejectionReason
+      );
+      setItems(next);
+    } catch (err) {
+      setError(err.message || "Không thể cập nhật trạng thái hồ sơ.");
+    } finally {
+      setProcessingId(null);
+      setProcessingStatus("");
+    }
   };
 
   const counts = useMemo(
@@ -421,12 +588,32 @@ export default function Admin() {
             </p>
           </div>
 
-          <button className="btn btn-light" onClick={reset}>
+          <button
+            className="btn btn-light"
+            onClick={refresh}
+            disabled={loading}
+          >
             <RotateCcw size={17} />
-            Khôi phục dữ liệu mẫu
+            {loading ? "Đang tải..." : "Làm mới dữ liệu"}
           </button>
         </div>
 
+        {error && (
+          <div className="admin-error" role="alert">
+            {error}
+          </div>
+        )}
+
+        {loading && items.length === 0 ? (
+          <div className="admin-empty">
+            <div className="admin-empty-icon">
+              <RotateCcw size={25} />
+            </div>
+            <h2>Đang tải hồ sơ</h2>
+            <p>Đang lấy dữ liệu đăng ký mới nhất từ hệ thống.</p>
+          </div>
+        ) : (
+          <>
         <div className="admin-summary">
           <div className="admin-summary-item">
             <div className="admin-summary-heading">
@@ -532,6 +719,8 @@ export default function Admin() {
                 key={item.id}
                 item={item}
                 onChangeStatus={change}
+                processingId={processingId}
+                processingStatus={processingStatus}
               />
             ))
           ) : (
@@ -546,6 +735,8 @@ export default function Admin() {
             </div>
           )}
         </div>
+          </>
+        )}
       </div>
     </section>
   );
