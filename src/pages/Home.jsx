@@ -3,20 +3,47 @@ import {
   MapPin,
   UsersRound,
   ArrowRight,
-  LogOut
+  LogOut,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import InfoItem from "../components/InfoItem";
 import PerformanceCarousel from "../components/PerformanceCarousel";
-import { getSubmissions } from "../services/storage";
+import { loadPublicSubmissions } from "../services/storage";
 
 export default function Home() {
-  const items = getSubmissions().filter(
-    (item) => item.status === "approved"
-  );
+  const [items, setItems] = useState([]);
 
   const isBTC =
     localStorage.getItem("hicd_btc_authenticated") === "true";
+
+  useEffect(() => {
+    let active = true;
+
+    const load = async () => {
+      try {
+        const data = await loadPublicSubmissions();
+
+        if (!active) return;
+
+        // Trang chủ hiển thị tất cả nội dung đã được BTC duyệt,
+        // không chia theo loại đăng ký.
+        setItems(Array.isArray(data) ? data : []);
+      } catch (error) {
+        if (active) {
+          console.error("Không thể tải nội dung công khai:", error);
+          setItems([]);
+        }
+      }
+    };
+
+    load();
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const handleLogout = () => {
     localStorage.removeItem("hicd_btc_authenticated");
@@ -63,7 +90,10 @@ export default function Home() {
                 <ArrowRight size={19} />
               </Link>
 
-              <Link to="/cac-tiet-muc" className="btn btn-outline">
+              <Link
+                to="/cac-tiet-muc"
+                className="btn btn-outline"
+              >
                 KHÁM PHÁ NGÀY HỘI <ArrowRight size={19} />
               </Link>
             </div>

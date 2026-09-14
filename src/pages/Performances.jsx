@@ -22,62 +22,9 @@ const contentSections = [
   },
 ];
 
-function ExhibitionCard({ item }) {
-  return (
-    <Link
-      className="public-registration-card"
-      to={`/cac-tiet-muc/${item.id}`}
-    >
-      <div className="public-registration-card__number">GIAN HÀNG</div>
-      <h3>Gian hàng triển lãm</h3>
-
-      <div className="public-registration-card__meta">
-        <span>{item.unit || "Chưa cập nhật đơn vị"}</span>
-      </div>
-    </Link>
-  );
-}
-
-function ActivityCard({ item }) {
-  const activities = Array.isArray(item.activities) ? item.activities : [];
-
-  return (
-    <Link
-      className="public-registration-card"
-      to={`/cac-tiet-muc/${item.id}`}
-    >
-      <div className="public-registration-card__number">HOẠT ĐỘNG</div>
-      <h3>Hoạt động của đơn vị</h3>
-
-      <div className="public-registration-card__meta">
-        <span>{item.unit || "Chưa cập nhật đơn vị"}</span>
-      </div>
-
-      {activities.length > 0 && (
-        <div className="public-registration-card__activities">
-          {activities.map((activity, index) => (
-            <div
-              className="public-registration-card__activity"
-              key={activity.id || `${activity.name}-${index}`}
-            >
-              <strong>{activity.name || `Hoạt động ${index + 1}`}</strong>
-            </div>
-          ))}
-        </div>
-      )}
-    </Link>
-  );
-}
-
 function RegistrationCard({ item }) {
-  if (item.registrationType === REGISTRATION_TYPES.EXHIBITION) {
-    return <ExhibitionCard item={item} />;
-  }
-
-  if (item.registrationType === REGISTRATION_TYPES.ACTIVITY) {
-    return <ActivityCard item={item} />;
-  }
-
+  // Tất cả loại nội dung dùng chung PerformanceCard để thumbnail,
+  // cờ quốc gia và tag loại nội dung được xử lý thống nhất.
   return <PerformanceCard item={item} />;
 }
 
