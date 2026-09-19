@@ -16,6 +16,7 @@ import {
 
 const units = [
   "Khoa Ngữ văn",
+  "Khoa Lịch sử",
   "Khoa Tiếng Anh",
   "Khoa Tiếng Pháp",
   "Khoa Tiếng Nga",

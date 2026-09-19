@@ -6,6 +6,10 @@ const unitFlags = {
     flag: "https://flagcdn.com/w160/vn.png",
     country: "Việt Nam",
   },
+  "Khoa Lịch sử": {
+    flag: "https://flagcdn.com/w160/vn.png",
+    country: "Việt Nam",
+  },
   "Khoa Tiếng Anh": {
     flag: "https://flagcdn.com/w160/gb.png",
     country: "Anh",
