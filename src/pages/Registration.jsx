@@ -12,7 +12,7 @@ import {
   addArtRegistration,
   addExhibitionRegistration,
   addActivityRegistration
-} from "../services/supabaseStorage";
+} from "../services/storage";
 
 const units = [
   "Khoa Ngữ văn",

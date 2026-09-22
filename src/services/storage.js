@@ -11,7 +11,7 @@ const CACHE_KEY = "hicd-admin-submissions-v1";
 
 /* =========================================================
    LOCAL CACHE
-   ========================================================= */
+========================================================= */
 
 function getCache() {
   try {
@@ -36,14 +36,13 @@ function setCache(items) {
 
 /* =========================================================
    ADMIN DATA
-   ========================================================= */
+========================================================= */
 
 /**
  * Giữ API cũ để các page hiện tại
  * không bị crash.
  *
- * Dữ liệu thật của BTC được tải bằng
- * loadSubmissions().
+ * Dữ liệu thật được tải bằng loadSubmissions().
  */
 export function getSubmissions() {
   return getCache();
@@ -100,7 +99,7 @@ export async function loadSubmissions() {
 
 /* =========================================================
    PUBLIC DATA
-   ========================================================= */
+========================================================= */
 
 /**
  * Lấy các nội dung đã được BTC duyệt
@@ -110,10 +109,7 @@ export async function loadSubmissions() {
  * API:
  * ?action=public
  *
- * Dữ liệu được lấy trực tiếp từ Google Sheets
- * thông qua Apps Script.
- *
- * KHÔNG sử dụng cache BTC cho dữ liệu public.
+ * Chỉ nhận dữ liệu public từ Apps Script.
  */
 export async function loadPublicSubmissions() {
   if (!APPS_SCRIPT_URL) {
@@ -152,13 +148,14 @@ export async function loadPublicSubmissions() {
 }
 
 /* =========================================================
-   CLEAR CACHE
-   ========================================================= */
+   CLEAR LOCAL CACHE
+========================================================= */
 
 /**
  * Chỉ xóa cache trình duyệt.
  *
- * Không xóa dữ liệu thật trên Google Sheets.
+ * KHÔNG xóa dữ liệu trong Google Sheets.
+ * KHÔNG xóa file trong Google Drive.
  */
 export function clearLocalSubmissions() {
   localStorage.removeItem(CACHE_KEY);
@@ -166,7 +163,7 @@ export function clearLocalSubmissions() {
 
 /* =========================================================
    UPDATE STATUS
-   ========================================================= */
+========================================================= */
 
 /**
  * Cập nhật trạng thái hồ sơ trên Google Sheets.
@@ -175,10 +172,6 @@ export function clearLocalSubmissions() {
  * - pending
  * - approved
  * - rejected
- *
- * Khi server cập nhật thành công,
- * tải lại toàn bộ dữ liệu BTC để UI
- * đồng bộ chính xác với Google Sheets.
  */
 export async function updateSubmissionStatus(
   id,
@@ -189,6 +182,14 @@ export async function updateSubmissionStatus(
     throw new Error(
       "Thiếu VITE_APPS_SCRIPT_URL trong .env.local"
     );
+  }
+
+  if (!id) {
+    throw new Error("Thiếu mã đăng ký.");
+  }
+
+  if (!status) {
+    throw new Error("Thiếu trạng thái đăng ký.");
   }
 
   const response = await fetch(
@@ -220,11 +221,308 @@ export async function updateSubmissionStatus(
     );
   }
 
-  /**
+  /*
    * Server đã cập nhật Google Sheet thành công.
-   *
-   * Tải lại dữ liệu thật để UI BTC
-   * đồng bộ với backend.
+   * Tải lại dữ liệu thật để UI BTC đồng bộ
+   * chính xác với backend.
    */
   return await loadSubmissions();
+}
+
+/* =========================================================
+   SUBMIT REGISTRATIONS
+========================================================= */
+
+/**
+ * Chuyển File từ trình duyệt thành payload JSON
+ * để Apps Script có thể decode và lưu vào Google Drive.
+ */
+async function fileToPayload(file) {
+  if (!file) return null;
+
+  const dataUrl = await new Promise(
+    (resolve, reject) => {
+      const reader = new FileReader();
+
+      reader.onload = () =>
+        resolve(reader.result);
+
+      reader.onerror = () =>
+        reject(
+          new Error(
+            `Không thể đọc file: ${file.name}`
+          )
+        );
+
+      reader.readAsDataURL(file);
+    }
+  );
+
+  const data =
+    String(dataUrl).split(",")[1] || "";
+
+  return {
+    name: file.name,
+    mimeType:
+      file.type ||
+      "application/octet-stream",
+    data,
+  };
+}
+
+/**
+ * Gửi payload đăng ký tới Apps Script.
+ */
+async function postRegistration(payload) {
+  if (!APPS_SCRIPT_URL) {
+    throw new Error(
+      "Thiếu VITE_APPS_SCRIPT_URL. Vui lòng kiểm tra cấu hình website."
+    );
+  }
+
+  const response = await fetch(
+    APPS_SCRIPT_URL,
+    {
+      method: "POST",
+      body: JSON.stringify(payload),
+    }
+  );
+
+  if (!response.ok) {
+    throw new Error(
+      `Không thể gửi đăng ký (${response.status}). Vui lòng thử lại.`
+    );
+  }
+
+  let result;
+
+  try {
+    result = await response.json();
+  } catch {
+    throw new Error(
+      "Phản hồi từ Apps Script không hợp lệ. Vui lòng thử lại."
+    );
+  }
+
+  if (!result.success) {
+    throw new Error(
+      result.error ||
+        result.message ||
+        "Apps Script không thể xử lý đăng ký."
+    );
+  }
+
+  return result.data;
+}
+
+/* =========================================================
+   ART PROGRAM
+========================================================= */
+
+/**
+ * Gửi đăng ký chương trình nghệ thuật.
+ *
+ * Bao gồm:
+ * - Thông tin đơn vị
+ * - Người phụ trách
+ * - Số điện thoại
+ * - Cam kết
+ * - Danh sách tham gia
+ * - Dự trù kinh phí
+ * - Danh sách tiết mục
+ */
+export async function addArtRegistration({
+  unit,
+  contact,
+  phone,
+  commitment,
+  participantFile,
+  budgetFile,
+  performances,
+}) {
+  if (!unit) {
+    throw new Error(
+      "Vui lòng chọn đơn vị."
+    );
+  }
+
+  if (!contact) {
+    throw new Error(
+      "Vui lòng nhập người phụ trách."
+    );
+  }
+
+  if (!phone) {
+    throw new Error(
+      "Vui lòng nhập số điện thoại."
+    );
+  }
+
+  if (!commitment) {
+    throw new Error(
+      "Vui lòng xác nhận cam kết."
+    );
+  }
+
+  if (
+    !Array.isArray(performances) ||
+    performances.length === 0
+  ) {
+    throw new Error(
+      "Vui lòng thêm ít nhất một tiết mục."
+    );
+  }
+
+  if (!participantFile) {
+    throw new Error(
+      "Vui lòng upload danh sách tham gia."
+    );
+  }
+
+  if (!budgetFile) {
+    throw new Error(
+      "Vui lòng upload dự trù kinh phí."
+    );
+  }
+
+  /*
+   * Chuyển hai file thành Base64 song song
+   * trước khi gửi sang Apps Script.
+   */
+  const [
+    participantFilePayload,
+    budgetFilePayload,
+  ] = await Promise.all([
+    fileToPayload(participantFile),
+    fileToPayload(budgetFile),
+  ]);
+
+  return postRegistration({
+    action: "submitArt",
+
+    unit,
+    contact,
+    phone,
+    commitment,
+
+    participantFile:
+      participantFilePayload,
+
+    budgetFile:
+      budgetFilePayload,
+
+    performances,
+  });
+}
+
+/* =========================================================
+   EXHIBITION BOOTH
+========================================================= */
+
+/**
+ * Gửi đăng ký gian hàng triển lãm.
+ */
+export async function addExhibitionRegistration({
+  unit,
+  contact,
+  completionTime,
+  layout,
+  exhibitionContent,
+  commitment,
+}) {
+  if (!unit) {
+    throw new Error(
+      "Vui lòng chọn đơn vị."
+    );
+  }
+
+  if (!contact) {
+    throw new Error(
+      "Vui lòng nhập người phụ trách."
+    );
+  }
+
+  if (!completionTime) {
+    throw new Error(
+      "Vui lòng nhập thời gian hoàn thành."
+    );
+  }
+
+  if (!exhibitionContent) {
+    throw new Error(
+      "Vui lòng nhập nội dung triển lãm."
+    );
+  }
+
+  if (!commitment) {
+    throw new Error(
+      "Vui lòng xác nhận cam kết."
+    );
+  }
+
+  return postRegistration({
+    action: "submitExhibition",
+
+    unit,
+    contact,
+
+    completionTime,
+
+    layout,
+
+    exhibitionContent,
+
+    commitment,
+  });
+}
+
+/* =========================================================
+   UNIT ACTIVITY
+========================================================= */
+
+/**
+ * Gửi đăng ký hoạt động của đơn vị.
+ */
+export async function addActivityRegistration({
+  unit,
+  contact,
+  commitment,
+  activities,
+}) {
+  if (!unit) {
+    throw new Error(
+      "Vui lòng chọn đơn vị."
+    );
+  }
+
+  if (!contact) {
+    throw new Error(
+      "Vui lòng nhập người phụ trách."
+    );
+  }
+
+  if (!commitment) {
+    throw new Error(
+      "Vui lòng xác nhận cam kết."
+    );
+  }
+
+  if (
+    !Array.isArray(activities) ||
+    activities.length === 0
+  ) {
+    throw new Error(
+      "Vui lòng thêm ít nhất một hoạt động."
+    );
+  }
+
+  return postRegistration({
+    action: "submitActivity",
+
+    unit,
+    contact,
+    commitment,
+
+    activities,
+  });
 }
